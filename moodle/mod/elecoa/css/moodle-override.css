@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+
+.content-only div#page-content {
+    overflow: auto;
+    position: inherit;
+    width: auto;
+}
+
+.content-only div#page-content div#region-main-box {
+    float: none;
+    left: auto;
+    position: inherit;
+    width: auto;
+}
+
+.content-only div#page-content div#region-main-box div#region-post-box {
+    float: none;
+    left: auto;
+    margin-left: 0;
+    position: inherit;
+    width: auto;
+}
+
+.content-only div#page-content div#region-main-box div#region-post-box div#region-main-wrap {
+    float: none;
+    position: inherit;
+    right: auto;
+    width: auto;
+}
+
+.navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+    margin-right: 0px;
+    margin-left: 0px;
+}

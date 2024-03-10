@@ -1,0 +1,71 @@
+<?xml version="1.0" standalone="no"?>
+<manifest identifier="ELECOATest_CM-02b" version="1.0.1"
+    xmlns="http://www.imsglobal.org/xsd/imscp_v1p1"
+    xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3"
+    xmlns:adlseq="http://www.adlnet.org/xsd/adlseq_v1p3"
+    xmlns:adlnav="http://www.adlnet.org/xsd/adlnav_v1p3"
+    xmlns:imsss="http://www.imsglobal.org/xsd/imsss"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p1.xsd
+                        http://www.adlnet.org/xsd/adlcp_v1p3 adlcp_v1p3.xsd
+                        http://www.adlnet.org/xsd/adlseq_v1p3 adlseq_v1p3.xsd
+                        http://www.adlnet.org/xsd/adlnav_v1p3 adlnav_v1p3.xsd
+                        http://www.imsglobal.org/xsd/imsss imsss_v1p0.xsd">
+
+   <metadata>
+      <schema>ADL SCORM</schema>
+      <schemaversion>2004 3rd Edition</schemaversion>
+   </metadata>
+
+   <organizations default="ELECOATest_CM-02b">
+      <organization identifier="ELECOATest_CM-02b">
+         <title>ELECOATest_CM-02b</title>
+         <item identifier="activity_1" identifierref="SEQ01" parameters="?tc=ELECOATest_CM-02b&amp;act=1">
+            <title>Activity 1</title>
+            <imsss:sequencing>
+               <imsss:objectives>
+                  <imsss:primaryObjective />
+                  <imsss:objective objectiveID="obj1" />
+                  <imsss:objective objectiveID="obj2" />
+                  <imsss:objective objectiveID="obj3" />
+               </imsss:objectives>
+            </imsss:sequencing>
+         </item>
+         <item identifier="activity_2" identifierref="SEQ01" parameters="?tc=ELECOATest_CM-02b&amp;act=2">
+            <title>Activity 2</title>
+            <imsss:sequencing>
+               <imsss:sequencingRules>
+                  <imsss:preConditionRule>
+                     <imsss:ruleConditions>
+                        <imsss:ruleCondition condition="satisfied"/>
+                     </imsss:ruleConditions>
+                     <imsss:ruleAction action="skip"/>
+                  </imsss:preConditionRule>
+               </imsss:sequencingRules>
+               <imsss:objectives>
+                  <imsss:primaryObjective objectiveID="PRIMARYOBJ" />
+                  <imsss:objective objectiveID="obj1" />
+               </imsss:objectives>
+               <imsss:deliveryControls objectiveSetByContent="true"/>
+            </imsss:sequencing>
+         </item>
+         <item identifier="activity_3" identifierref="SEQ01" parameters="?tc=ELECOATest_CM-02b&amp;act=3">
+            <title>Activity 3</title>
+            <imsss:sequencing>
+               <imsss:objectives>
+                  <imsss:primaryObjective />
+                  <imsss:objective objectiveID="obj1" />
+               </imsss:objectives>
+            </imsss:sequencing>
+         </item>
+         <imsss:sequencing>
+            <imsss:controlMode choice="false" flow="true"/>
+         </imsss:sequencing>
+      </organization>
+   </organizations>
+   <resources>
+      <resource identifier="SEQ01" type="webcontent" adlcp:scormType="sco" href="Activity.htm" xml:base="resources/">
+         <file href="Activity.htm"/>
+      </resource>
+   </resources>
+</manifest>

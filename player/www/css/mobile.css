@@ -1,0 +1,365 @@
+@charset "utf-8";
+
+/**
+ * Frame styles
+ */
+#ELECOA_CONTAINER {
+    overflow-x: hidden;
+    width: 100vw;
+}
+
+body {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.breadcrumb-nav {
+    margin-bottom: 0px;
+}
+
+#ELECOA_NAV {
+    min-height: 22px;
+    z-index: 9;
+    left: 0px;
+}
+#ELECOA_NAV.nav-close {
+}
+
+#ELECOA_NAVCLOSEBOX {
+    text-align: right;
+    margin: 2px 0px 0px 0px;
+    padding: 0;
+    height: 17px;
+    font-family: Meiryo, Helvetica;
+}
+#ELECOA_NAVCLOSEBOX span {
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    background-image: url(../images/close_toc.png);
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+#ELECOA_NAV.nav-close #ELECOA_NAVCLOSEBOX span {
+    background-image: url(../images/open_toc.png);
+}
+#ELECOA_NAV.nav-close #ELECOA_INDEXTITLE, 
+#ELECOA_NAV.nav-close #ELECOA_INDEXTREEVIEWCONTAINER {
+    display: none;
+}
+
+#ELECOA_SEPARATOR {
+    float: left;
+}
+
+#ELECOA_MAINCONTAINER {
+    overflow-x: hidden;
+    position: relative;
+}
+#ELECOA_MAINCONTAINER.nav-close {
+}
+
+
+#API_1484_11 {
+    margin-top: 30px;
+    height: 85px;
+}
+
+#ELECOA_MAIN {
+    border: 1px solid #ddd;
+    background-color: transparent;
+    margin: 0;
+}
+
+object {
+    overflow: hidden;
+}
+
+body.header {
+    padding: 0;
+    margin: 0;
+}
+
+body.header div {
+    float:right;
+}
+
+
+/**
+ * Sequence button styles
+ */
+.elecoa-nav-button-container {
+}
+.elecoa-nav-button-container-left {
+    float: left;
+}
+.elecoa-nav-button-container-right {
+    text-align: right;
+}
+
+a.elecoa-nav-button {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 12px;
+    position:relative;
+    top:14px;
+    padding: 14px 18px;
+    line-height: 1em;
+    font-weight: bold;
+    color: #444;
+    text-decoration: none;
+    font-family: Meiryo, Helvetica;
+    border: 1px solid #ccc;
+    border-top: 1px solid #aaa;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(127, 127, 127, 0.3);
+    margin-bottom: 20px;
+}
+a.elecoa-nav-button.disabled {
+    border: 1px solid #eee;
+    cursor: not-allowed;
+    color: #aaa;
+    box-shadow: none;
+}
+a.elecoa-nav-button:active {
+    background-color: #ccc;
+}
+a.elecoa-nav-button.disabled:active {
+    background-color: transparent;
+}
+a.elecoa-nav-button span {
+    display: inline-block;
+    line-height: 1em;
+    overflow: visible;
+}
+a.elecoa-nav-button span.elecoa-nav-button-text {
+}
+a.elecoa-nav-button span.elecoa-nav-button-space {
+    display: inline-block;
+    width: 8px;
+}
+a.elecoa-nav-button span.elecoa-nav-button-mark {
+    width: 12px;
+    height: 12px;
+    font-size: 12px;
+    font-weight: normal;
+    text-shadow: 0px -1px 2px #666, 0px 1px 2px #fff;
+}
+#elecoa-nav-closebox {
+    z-index: 99;
+}
+#link-nav-previous {
+}
+#link-nav-continue {
+}
+#link-nav-suspend {
+}
+#link-nav-suspend span.elecoa-nav-button-mark {
+    background-image: url(../images/pause.png);
+    background-position: bottom center;
+}
+#link-nav-exitall {
+}
+
+#dialog {
+    width: 80%;
+    z-index: 6;
+    top: 30vh;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+    background-color: #fff;
+    border: solid 1px #888;
+    text-align: center;
+}
+
+#dialog .msgbody {
+    padding: 10px;
+}
+
+#dialog .msgfooter {
+    padding: 10px;
+    background-color: #fefefe;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 768px) {
+}
+
+@media only screen and (max-width: 355px) {
+  #link-nav-suspend-text,
+  #link-nav-suspend span.elecoa-nav-button-space {
+      display: none;
+  }
+  #link-nav-exitall-text,
+  #link-nav-exitall span.elecoa-nav-button-space {
+      display: none;
+  }
+}
+
+@media only screen and (min-width: 380px) {
+  a.elecoa-nav-button {
+      padding: 14px 26px !important;
+  }
+}
+
+/**
+ * TreeView styles
+ */
+
+#ELECOA_INDEXTREEVIEWCONTAINER {
+    overflow-x: auto;
+    padding: 15px 0;
+}
+#ELECOA_INDEXTREEVIEW {
+}
+#ELECOA_INDEXTITLE {
+    padding: 5px;
+    font-size: larger;
+    font-weight: bold;
+    word-wrap: break-all;
+    text-overflow: ellipsis;
+    color: #444;
+    border-bottom: 1px solid #ccc;
+}
+
+.ygtvtm,
+.ygtvtmh,
+.ygtvlm,
+.ygtvlmh {
+    background-image: url('../images/expanded.png');
+    background-repeat: no-repeat;
+    background-position: 2px 13px;
+}
+.ygtvtp,
+.ygtvtph,
+.ygtvlp,
+.ygtvlph {
+    background-image: url('../images/collapsed.png');
+    background-repeat: no-repeat;
+    background-position: 2px 13px;
+}
+.ygtvdepthcell,
+.ygtvln,
+.ygtvtn {
+    background-image: none;
+    height: 30px;
+}
+.ygtvfocus {
+    background-color: transparent;
+}
+.ygtvcontent {
+    padding: 9px 0px !important;
+}
+
+.elecoa-treenode-block {
+    word-wrap: break-all;
+    height: 20px;
+    padding-left: 20px;
+    background-image: url('../images/block_unknown_unknown.png');
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    zoom: 1.3;
+}
+a.elecoa-treenode-block {
+    color: #254f7a;
+}
+.elecoa-treenode-leaf {
+    white-space: nowrap;
+    height: 20px;
+    padding-left: 20px;
+    background-image: url('../images/leaf_unknown_unknown.png');
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    zoom: 1.3;
+}
+a.elecoa-treenode-leaf {
+    color: #254f7a;
+}
+.elecoa-treenode-leaf.current {
+    background-image: url('../images/current.png');
+    background-position: 0px -1px;
+}
+
+.elecoa-treenode-leaf.completed {
+    background-image: url('../images/leaf_completed_unknown.png');
+}
+.elecoa-treenode-leaf.not-completed {
+    background-image: url('../images/leaf_notcompleted_unknown.png');
+}
+.elecoa-treenode-leaf.passed {
+    background-image: url('../images/leaf_unknown_passed.png');
+}
+.elecoa-treenode-leaf.failed {
+    background-image: url('../images/leaf_unknown_failed.png');
+}
+.elecoa-treenode-leaf.completed.passed {
+    background-image: url('../images/leaf_completed_passed.png');
+}
+.elecoa-treenode-leaf.completed.failed {
+    background-image: url('../images/leaf_completed_failed.png');
+}
+.elecoa-treenode-leaf.not-completed.passed {
+    background-image: url('../images/leaf_notcompleted_passed.png');
+}
+.elecoa-treenode-leaf.not-completed.failed {
+    background-image: url('../images/leaf_notcompleted_failed.png');
+}
+a.elecoa-treenode-leaf.clicked {
+    font-weight: bold;
+    background-image: url('../images/load.gif');
+}
+
+.elecoa-treenode-block.completed {
+    background-image: url('../images/block_completed_unknown.png');
+}
+.elecoa-treenode-block.not-completed {
+    background-image: url('../images/block_notcompleted_unknown.png');
+}
+.elecoa-treenode-block.passed {
+    background-image: url('../images/block_unknown_passed.png');
+}
+.elecoa-treenode-block.failed {
+    background-image: url('../images/block_unknown_failed.png');
+}
+.elecoa-treenode-block.completed.passed {
+    background-image: url('../images/block_completed_passed.png');
+}
+.elecoa-treenode-block.completed.failed {
+    background-image: url('../images/block_completed_failed.png');
+}
+.elecoa-treenode-block.not-completed.passed {
+    background-image: url('../images/block_notcompleted_passed.png');
+}
+.elecoa-treenode-block.not-completed.failed {
+    background-image: url('../images/block_notcompleted_failed.png');
+}
+
+
+/**
+ * Moodle styles
+ */
+h1.elecoa-title {
+    font-family: Meiryo, Helvetica;
+    font-size: 24px;
+    text-align: center;
+}
+h1.elecoa-title span {
+    background-image: url(../images/elecoa-logo-background.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    display: inline-block;
+    min-height: 40px;
+    line-height: 40px;
+    padding: 0 0 0 56px;
+}
+div.elecoa-choices {
+    text-align: center;
+}
+div.elecoa-choices input {
+    margin-left: 10px;
+    margin-right: 2px;
+}
+div.elecoa-buttons {
+    margin-top: 20px;
+    text-align: center;
+}

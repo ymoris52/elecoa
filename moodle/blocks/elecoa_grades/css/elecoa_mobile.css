@@ -1,0 +1,253 @@
+@charset "UTF-8";
+
+ul.elecoa-mobile-list {
+    margin-top:1em !important;
+    margin-bottom:1em !important;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+li.elecoa-mobile-list-divider, li.elecoa-mobile-li-static {
+    padding: .5em 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.elecoa-mobile-li-static.elecoa-mobile-li {
+    padding: .7em 15px .7em 15px;
+    display: block;
+}
+
+li.elecoa-mobile-li {
+    display: block;
+    margin: 0;
+    position: relative;
+    overflow: visible;
+    text-align: left;
+    border-width: 0;
+    border-top-width: 1px;
+}
+
+.elecoa-mobile-bar-b {
+    border: 1px solid #456f9a;
+    background: #5e87b0;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 1px 1px #3e6790;
+}
+
+.elecoa-mobile-btn {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    margin: .5em 5px;
+    padding: 0;
+}
+
+.elecoa-mobile-btn-up-d, .elecoa-mobile-btn-hover-d, .elecoa-mobile-btn-down-d {
+    font-family: Helvetica,Arial,sans-serif;
+    text-decoration: none;
+}
+
+.elecoa-mobile-btn-up-d {
+    border: 1px solid #bbb;
+    background: #fff;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 0 1px 0 #fff;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #fafafa), to( #f6f6f6 ));
+    background-image: -webkit-linear-gradient( #fafafa , #f6f6f6 );
+    background-image: -moz-linear-gradient( #fafafa , #f6f6f6 );
+    background-image: -ms-linear-gradient( #fafafa , #f6f6f6 );
+    background-image: -o-linear-gradient( #fafafa , #f6f6f6 );
+    background-image: linear-gradient( #fafafa , #f6f6f6 );
+}
+
+.elecoa-mobile-body-d {
+    border: 1px solid #bbb;
+    color: #333;
+    text-shadow: 0 1px 0 #fff;
+    background: #fff;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #fff), to( #fff ));
+    background-image: -webkit-linear-gradient( #fff , #fff );
+    background-image: -moz-linear-gradient( #fff , #fff );
+    background-image: -ms-linear-gradient( #fff , #fff );
+    background-image: -o-linear-gradient( #fff , #fff );
+    background-image: linear-gradient( #fff , #fff );
+}
+
+.elecoa-mobile-list, .elecoa-mobile-li {
+    list-style: none;
+}
+
+ul.elecoa-mobile-list li a {
+    padding: .7em 30px .7em 15px;
+    display: block;
+    color: #333;
+}
+
+ul.elecoa-mobile-list li a:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -9px;
+    right: 10px;
+    content: '';
+    background:#888;
+    background-image: url(../images/icon-arrow.png);
+    -moz-background-size: 18px 18px;
+    -o-background-size: 18px 18px;
+    -webkit-background-size: 18px 18px;
+    background-size: 18px 18px;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+}
+
+ul.elecoa-mobile-list li a[href=""]:after {
+    background: none !important;
+}
+
+.elecoa-mobile-li-aside {
+    float: right;
+    width: 50%;
+    text-align: right;
+    margin: .3em 0;
+}
+
+ul.elecoa-mobile-list p {
+    font-size: 12px;
+    font-weight: normal;
+    display: block;
+    margin: -.5em 0 .6em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+ul.elecoa-mobile-list li p.name {
+    display:inherit;
+    margin-top:18px;
+}
+
+ul.elecoa-mobile-list li p.attempt {
+    display:inherit;
+    margin-top:0.6em;
+}
+
+ul.elecoa-mobile-list li p.lessontime,
+ul.elecoa-mobile-list li p.firstname.lastname,
+ul.elecoa-mobile-list li p.userlongname {
+    position:absolute;
+}
+
+ul.elecoa-mobile-list li p.completion.success {
+    margin-top:-0.5em;
+}
+
+ul.elecoa-mobile-list li p.lessonperiod,
+ul.elecoa-mobile-list li p.totalperiod {
+    text-align:right;
+    margin-top:0;
+    margin-bottom:0;
+    padding-bottom:0;
+}
+
+ul.elecoa-mobile-list li.tracking {
+    height:2.3em;
+}
+
+ul.elecoa-mobile-list li.tracking p.element-name {
+    font-weight:bolder;
+}
+
+ul.elecoa-mobile-list li.tracking p.element-value {
+    text-align:right;
+}
+
+ul.elecoa-mobile-list li.aggregate {
+    background:#ddf;
+}
+
+ul.elecoa-mobile-list li span.caption {
+    font-size:smaller;
+    margin-left:20px;
+    margin-right:5px;
+}
+
+/**
+ * 検索条件
+ */
+
+div.elecoa-grade-conditions label {
+    display: inherit;
+    margin: .3em 0;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.elecoa-mobile-btn-hidden {
+    width: 100%;
+    height: 100%;
+    -webkit-appearance: button;
+    opacity: .1;
+    cursor: pointer;
+    background: #fff;
+    background: rgba(255,255,255,0);
+    filter: Alpha(Opacity=.0001);
+    font-size: 1px;
+    border: none;
+    text-indent: -9999px;
+}
+
+div.elecoa-grade-conditions input[type="submit"] {
+    width: 100%;
+    margin: 10px 0;
+}
+
+div.elecoa-grade-conditions input[type="checkbox"]+label {
+    font-size: 14px;
+    border: 1px solid #bbb;
+    padding: .6em 20px;
+    background: #fff;
+    font-weight: bold;
+    color: #333;
+    text-shadow: 0 1px 0 #fff;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #fafafa), to( #f6f6f6 ));
+    background-image: -webkit-linear-gradient( #fafafa , #f6f6f6 );
+    background-image: -moz-linear-gradient( #fafafa , #f6f6f6 );
+    background-image: -ms-linear-gradient( #fafafa , #f6f6f6 );
+    background-image: -o-linear-gradient( #fafafa , #f6f6f6 );
+    background-image: linear-gradient( #fafafa , #f6f6f6 );
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    border-radius: 1em;
+}
+
+.elecoa-mobile-checkbox {
+    position: relative;
+    clear: both;
+}
+
+.elecoa-mobile-checkbox input {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    margin: -5px 0 0 0;
+    outline: 0 !important;
+    z-index: 1;
+}
+
+input[type=text] {
+    display: inline;
+}
+
+.ui-checkbox label {
+    display: inherit !important;
+    padding: 0 !important;
+}
+
+select {
+    width: 100%;
+}

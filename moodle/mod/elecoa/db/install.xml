@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/elecoa/db" VERSION="20120112" COMMENT="XMLDB file for Moodle mod/elecoa"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="elecoa" COMMENT="elecoa activities" NEXT="elecoa_logs">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="course"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="course elecoa activity belongs to" PREVIOUS="id" NEXT="coursemodule"/>
+        <FIELD NAME="coursemodule" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" COMMENT="coursemodule id" PREVIOUS="course" NEXT="name"/>
+        <FIELD NAME="name" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances" PREVIOUS="coursemodule" NEXT="pkgtype"/>
+        <FIELD NAME="pkgtype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="type of content package (ELECOA, SCORM2004...)" PREVIOUS="name" NEXT="reference"/>
+        <FIELD NAME="reference" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" PREVIOUS="pkgtype" NEXT="intro"/>
+        <FIELD NAME="intro" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" COMMENT="general introduction of the elecoa activity" PREVIOUS="reference" NEXT="introformat"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="format of the intro field (MOODLE, HTML, MARKDOWN...)" PREVIOUS="intro" NEXT="version"/>
+        <FIELD NAME="version" TYPE="char" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="introformat" NEXT="timeopen"/>
+        <FIELD NAME="timeopen" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="version" NEXT="timeclose"/>
+        <FIELD NAME="timeclose" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timeopen" NEXT="whatgrade"/>
+        <FIELD NAME="whatgrade" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="timeclose" NEXT="sha1hash"/>
+        <FIELD NAME="sha1hash" TYPE="char" LENGTH="40" NOTNULL="false" SEQUENCE="false" COMMENT="SHA1 hash of the package file" PREVIOUS="whatgrade" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="sha1hash" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timecreated"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="elecoa_logs" COMMENT="elecoa logs" PREVIOUS="elecoa" NEXT="elecoa_items">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="elecoaid"/>
+        <FIELD NAME="elecoaid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="elecoaid" NEXT="scope"/>
+        <FIELD NAME="scope" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="userid" NEXT="attempt"/>
+        <FIELD NAME="attempt" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="scope" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="attempt" NEXT="counter"/>
+        <FIELD NAME="counter" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="name" NEXT="type"/>
+        <FIELD NAME="type" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="counter" NEXT="logkey"/>
+        <FIELD NAME="logkey" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="type" NEXT="logvalue"/>
+        <FIELD NAME="logvalue" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false" PREVIOUS="logkey" NEXT="timestamp"/>
+        <FIELD NAME="timestamp" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="logvalue"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="elecoa"/>
+        <KEY NAME="elecoa" TYPE="foreign" FIELDS="elecoaid" REFTABLE="elecoa" REFFIELDS="id" PREVIOUS="primary"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="elecoaid-userid-attempt-name" UNIQUE="false" FIELDS="elecoaid, userid, attempt, name"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="elecoa_items" COMMENT="elecoa items" PREVIOUS="elecoa_logs" NEXT="elecoa_grades">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="elecoaid"/>
+        <FIELD NAME="elecoaid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="parentid"/>
+        <FIELD NAME="parentid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="elecoaid" NEXT="identifier"/>
+        <FIELD NAME="identifier" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="parentid" NEXT="title"/>
+        <FIELD NAME="title" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false" PREVIOUS="identifier" NEXT="cotype"/>
+        <FIELD NAME="cotype" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false" PREVIOUS="title"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="elecoa"/>
+        <KEY NAME="elecoa" TYPE="foreign" FIELDS="elecoaid" REFTABLE="elecoa" REFFIELDS="id" PREVIOUS="primary"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="elecoa_grades" COMMENT="elecoa grades" PREVIOUS="elecoa_items" NEXT="elecoald_dynamic_manifest">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="elecoaid"/>
+        <FIELD NAME="elecoaid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="parentid"/>
+        <FIELD NAME="parentid" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="elecoaid" NEXT="itemid"/>
+        <FIELD NAME="itemid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="parentid" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="itemid" NEXT="attempt"/>
+        <FIELD NAME="attempt" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="userid" NEXT="counter"/>
+        <FIELD NAME="counter" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="attempt" NEXT="completion"/>
+        <FIELD NAME="completion" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="counter" NEXT="success"/>
+        <FIELD NAME="success" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="completion" NEXT="score"/>
+        <FIELD NAME="score" TYPE="number" LENGTH="10" NOTNULL="false" UNSIGNED="false" SEQUENCE="false" DECIMALS="7" PREVIOUS="success" NEXT="lessontime"/>
+        <FIELD NAME="lessontime" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="score" NEXT="lessonperiod"/>
+        <FIELD NAME="lessonperiod" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="lessontime" NEXT="totalperiod"/>
+        <FIELD NAME="totalperiod" TYPE="number" LENGTH="10" DECIMALS="2" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="lessonperiod"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="elecoa"/>
+        <KEY NAME="elecoa" TYPE="foreign" FIELDS="elecoaid" REFTABLE="elecoa" REFFIELDS="id" PREVIOUS="primary" NEXT="itemid"/>
+        <KEY NAME="itemid" TYPE="foreign" FIELDS="itemid" REFTABLE="elecoa_items" REFFIELDS="id" PREVIOUS="elecoa"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="parentid" UNIQUE="false" FIELDS="parentid" NEXT="userid"/>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid" PREVIOUS="parentid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="elecoald_dynamic_manifest" COMMENT="elecoald dynamic manifest" PREVIOUS="elecoa_grades" NEXT="elecoa_registration">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="cid" />
+        <FIELD NAME="cid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="uid" />
+        <FIELD NAME="uid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="cid" NEXT="activity" />
+        <FIELD NAME="activity" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="uid" NEXT="child" />
+        <FIELD NAME="child" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="activity" NEXT="action" />
+        <FIELD NAME="action" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="child" NEXT="manifest" />
+        <FIELD NAME="manifest" TYPE="text" LENGTH="small" NOTNULL="true" SEQUENCE="false" PREVIOUS="activity" NEXT="created_at" />
+        <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="manifest" />
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="elecoa_registration" COMMENT="elecoa registration" PREVIOUS="elecoald_dynamic_manifest" NEXT="elecoa_authtoken">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="cid" />
+        <FIELD NAME="cid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="uid" />
+        <FIELD NAME="uid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="cid" NEXT="registration" />
+        <FIELD NAME="registration" TYPE="char" LENGTH="36" NOTNULL="true" SEQUENCE="false" PREVIOUS="uid" />
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="registration" UNIQUE="true" FIELDS="registration" NEXT="cid-uid" />
+        <INDEX NAME="cid-uid" UNIQUE="true" FIELDS="cid, uid" PREVIOUS="registration" />
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="elecoa_authtoken" COMMENT="elecoa authorization token" PREVIOUS="elecoa_registration">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="registration" />
+        <FIELD NAME="registration" TYPE="char" LENGTH="36" NOTNULL="true" SEQUENCE="false" NEXT="activity" />
+        <FIELD NAME="activity" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="registration" NEXT="title" />
+        <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="activity" NEXT="attempt" />
+        <FIELD NAME="attempt" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="registration" NEXT="sessionid" />
+        <FIELD NAME="sessionid" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="attempt" NEXT="genkey" />
+        <FIELD NAME="genkey" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="sessionid" NEXT="authuser" />
+        <FIELD NAME="authuser" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="genkey" NEXT="password" />
+        <FIELD NAME="password" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="user" NEXT="fetched" />
+        <FIELD NAME="fetched" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="password" NEXT="valid" />
+        <FIELD NAME="valid" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="fetched" />
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

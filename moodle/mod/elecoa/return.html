@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <title></title>
+  <script>
+   function location_params() {
+    let params = {}, keyvalue;
+    let _params = location.search.substring(1).split('&');
+    for (let i = 0; i < _params.length; i++) {
+     keyvalue = _params[i].split('=');
+     params[decodeURIComponent(keyvalue[0])] = decodeURIComponent((keyvalue[1]||'').replace(/\+/g, ' '));
+    }
+    return params;
+   }
+  </script>
+  <script src="./js/core.js"></script>
+ </head>
+ <body>
+  <script>
+   let params = location_params();
+   let cmid = params['cmid'];
+   let content_id = params['CID'];
+   let core = new ElecoaCore();
+   let cmd = params['CMD'];
+   let results = core.sendCommand(cmd + '&VAL=' + params['VAL']);
+   if (results.result && (results.action.type == core.ACTION_MOVE)) {
+    top.location.href = "container.php?id=" + encodeURIComponent(top.cmid) + "&NextID=" + encodeURIComponent(results.action.to);
+   }
+   else {
+    alert("An unexpected error occurred");
+   }
+  </script>
+ </body>
+</html>

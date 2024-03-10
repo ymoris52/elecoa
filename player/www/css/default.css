@@ -1,0 +1,192 @@
+@charset "utf-8";
+
+a {
+ color: #0000cd;
+}
+body {
+ background-color: #ffffff;
+ color: #000000;
+ font-family: sans-serif;
+ margin: 0;
+}
+h1 {
+ background-color: #becafe;
+ border-bottom: 1px solid #98a2cb;
+ font-size: 120%;
+ margin: 0;
+ padding: 0.3em 1em 0.2em;
+}
+
+.center {
+ text-align: center;
+}
+.right {
+ text-align: right;
+}
+.small {
+ font-size: 90%;
+}
+
+/* error page (init_www.php) */
+div#error_msg {
+ color: #dc143c;
+ font-weight: bold;
+ margin: 2em 3em;
+}
+
+/* index.html */
+div#lf {
+ margin: 2em auto;
+ width: 35em;
+}
+div#lf > form {
+ background-color: #ebfebe;
+ border: 1px solid #bccb98;
+ float: left;
+ margin-right: 2em;
+ padding: 1em;
+ width: 15em;
+}
+div#lf > form h2 {
+ border-bottom: 3px double #bccb98;
+ font-size: 100%;
+ margin-top: 0;
+ padding: 0.2em 0.4em;
+}
+div#lf > form > div {
+ clear: left;
+ margin: 0.6em 0 0;
+}
+div#lf > form label {
+ display: block;
+ float: left;
+ margin-right: 0.5em;
+ text-align: right;
+ width: 6em;
+}
+div#lf > form input {
+ border: 1px solid #bccb98;
+ width: 8em;
+}
+
+table#accounts {
+ border-collapse: collapse;
+ margin: 0 auto;
+}
+table#accounts caption {
+ margin-bottom: 0.2em;
+}
+table#accounts th {
+ background-color: #feeabe;
+ font-size: 90%;
+}
+table#accounts th, table#accounts td {
+ border: 1px solid #cbbb98;
+ padding: 0.2em;
+ text-align: center;
+}
+
+/* menu.php */
+div#session {
+ font-size: 90%;
+ margin: 0.2em 1em;
+ text-align: right;
+}
+form#mf {
+ background-color: #ebfebe;
+ border: 1px solid #bccb98;
+ margin: 2em auto;
+ padding: 1em;
+ width: 26em;
+}
+form#mf h2 {
+ border-bottom: 3px double #bccb98;
+ font-size: 100%;
+ margin-top: 0;
+ padding: 0.2em 0.4em;
+}
+form#mf > div {
+ clear: left;
+ margin: 0.6em 0 0;
+}
+form#mf label[for], form#mf span.label {
+ display: block;
+ float: left;
+ margin-right: 0.5em;
+ text-align: right;
+ width: 8em;
+}
+form#mf select {
+ border: 1px solid #bccb98;
+ max-width: 17em;
+}
+form#mf select option[value="."] {
+ background-color: #e3e3e3;
+}
+
+form#cf {
+ background-color: #eee;
+ border: 1px solid #888;
+ padding: 1em;
+ margin: 2em auto;
+ width: 26em;
+}
+form#cf > input {
+ margin: 0.6em auto;
+}
+
+/* contentpkguploader.php */
+div#upload_succeeded {
+ margin:2em auto;
+ width: 30em;
+ text-align:center;
+ padding: 1em;
+ border: 1px solid #888;
+ background-color: #eee;
+}
+div#upload_failed {
+ margin:2em auto;
+ width: 30em;
+ text-align:center;
+ padding: 1em;
+ border: 1px solid #888;
+ background-color: #eee;
+ color:#dc143c;
+}
+
+/* log.php */
+ul.gobj {
+  padding: 0;
+}
+ul.gobj li {
+  display: inline-block;
+  list-style-type: none;
+  margin: 0.1em 0.5em 0.3em 1em;
+}
+table.log {
+  border-collapse: collapse;
+  margin: 1em;
+}
+table.log thead > * {
+  border-bottom: 5px double #999999;
+}
+table.log th {
+  background-color: #f2f3f4;
+  border: 1px solid #999999;
+  font-weight: normal;
+  padding: 0.5em;
+}
+table.log td {
+  border: 1px solid #999999;
+  padding: 0.5em;
+  vertical-align: top;
+}
+table.log div {
+  padding: 0.2em 0.3em;
+}
+table.log div.c {
+  background-color: #a9d0f5;
+}
+span.cm {
+  color: #666666;
+}

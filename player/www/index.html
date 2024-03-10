@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="./css/default.css">
+  <title>ELECOA Player</title>
+ </head>
+ <body>
+  <h1>ELECOA Player</h1>
+  <div id="lf">
+   <form action="./login.php" method="post">
+    <h2>Sign In</h2>
+    <div>
+     <label for="uid">User ID</label>
+     <input type="text" name="uid" value="user1" id="uid" />
+    </div>
+    <div>
+     <label for="uid">User Name</label>
+     <input type="text" name="uname" value="hoge" id="uname" />
+    </div>
+    <div>
+     <label for="pwd">Password</label>
+     <input type="password" name="pwd" value="pass1" id="pwd" />
+    </div>
+    <div class="center">
+     <button type="submit">Sign In</button>
+    </div>
+   </form>
+   <div>
+    <p>
+     Please use the following accounts for trial.
+    </p>
+    <table id="accounts">
+     <caption>Accounts for trial</caption>
+     <thead>
+      <tr><th>User ID</th><th>Password</th></tr>
+     </thead>
+     <tbody>
+      <tr><td>user1</td><td>pass1</td></tr>
+      <tr><td>user2</td><td>pass2</td></tr>
+      <tr><td>user3</td><td>pass3</td></tr>
+      <tr><td>user4</td><td>pass4</td></tr>
+      <tr><td>user5</td><td>pass5</td></tr>
+     </tbody>
+    </table>
+   </div>
+  </div>
+ </body>
+</html>

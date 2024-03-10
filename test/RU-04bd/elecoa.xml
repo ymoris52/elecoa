@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns="http://elecoa.ouj.ac.jp/ns/elecoa/1.0">
+  <item identifier="ELECOATest_RU-04bd" coType="SCORMRoot" oGS="true" startID="">
+    <title>ELECOATest_RU-04bd</title>
+    <itemData xmlns:imsss="http://www.imsglobal.org/xsd/imsss" xmlns:adlseq="http://www.adlnet.org/xsd/adlseq_v1p3" xmlns:adlnav="http://www.adlnet.org/xsd/adlnav_v1p3">
+      <imsss:sequencing>
+        <imsss:controlMode choice="false" choiceExit="true" flow="true" forwardOnly="false" useCurrentAttemptObjectiveInfo="true" useCurrentAttemptProgressInfo="true"/>
+        <imsss:rollupRules rollupObjectiveSatisfied="true" rollupProgressCompletion="true" objectiveMeasureWeight="1.000"/>
+        <imsss:objectives>
+          <imsss:primaryObjective satisfiedByMeasure="false" objectiveID="">
+            <imsss:minNormalizedMeasure>1.0</imsss:minNormalizedMeasure>
+          </imsss:primaryObjective>
+        </imsss:objectives>
+        <imsss:deliveryControls tracked="true" completionSetByContent="false" objectiveSetByContent="false"/>
+        <adlseq:constrainedChoiceConsiderations preventActivation="false" constrainChoice="false"/>
+        <adlseq:rollupConsiderations requiredForSatisfied="always" requiredForNotSatisfied="always" requiredForCompleted="always" requiredForIncomplete="always" measureSatisfactionIfActive="true"/>
+      </imsss:sequencing>
+    </itemData>
+    <item identifier="activity_1" href="resources/Activity.htm?tc=ELECOATest_RU-04bd&amp;act=1" coType="SCORMSco">
+      <title>Activity 1</title>
+      <itemData xmlns:imsss="http://www.imsglobal.org/xsd/imsss" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3" xmlns:adlseq="http://www.adlnet.org/xsd/adlseq_v1p3" xmlns:adlnav="http://www.adlnet.org/xsd/adlnav_v1p3">
+        <imsss:sequencing>
+          <imsss:controlMode choice="true" choiceExit="true" flow="false" forwardOnly="false" useCurrentAttemptObjectiveInfo="true" useCurrentAttemptProgressInfo="true"/>
+          <imsss:rollupRules rollupObjectiveSatisfied="true" rollupProgressCompletion="true" objectiveMeasureWeight="1.000"/>
+          <imsss:objectives>
+            <imsss:primaryObjective satisfiedByMeasure="false" objectiveID="">
+              <imsss:minNormalizedMeasure>1.0</imsss:minNormalizedMeasure>
+            </imsss:primaryObjective>
+          </imsss:objectives>
+          <imsss:deliveryControls tracked="true" completionSetByContent="false" objectiveSetByContent="false"/>
+          <adlseq:constrainedChoiceConsiderations preventActivation="false" constrainChoice="false"/>
+          <adlseq:rollupConsiderations requiredForSatisfied="always" requiredForNotSatisfied="always" requiredForCompleted="always" requiredForIncomplete="always" measureSatisfactionIfActive="true"/>
+        </imsss:sequencing>
+      </itemData>
+    </item>
+    <item identifier="activity_2" coType="SCORMBlock">
+      <title>Activity 2</title>
+      <itemData xmlns:imsss="http://www.imsglobal.org/xsd/imsss" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3" xmlns:adlseq="http://www.adlnet.org/xsd/adlseq_v1p3">
+        <imsss:sequencing>
+          <imsss:controlMode choice="false" choiceExit="true" flow="true" forwardOnly="false" useCurrentAttemptObjectiveInfo="true" useCurrentAttemptProgressInfo="true"/>
+          <imsss:objectives>
+            <imsss:primaryObjective satisfiedByMeasure="false" objectiveID="">
+              <imsss:minNormalizedMeasure>1.0</imsss:minNormalizedMeasure>
+            </imsss:primaryObjective>
+          </imsss:objectives>
+          <imsss:deliveryControls tracked="true" completionSetByContent="false" objectiveSetByContent="false"/>
+          <adlseq:constrainedChoiceConsiderations preventActivation="false" constrainChoice="false"/>
+          <adlseq:rollupConsiderations requiredForSatisfied="always" requiredForNotSatisfied="always" requiredForCompleted="always" requiredForIncomplete="always" measureSatisfactionIfActive="true"/>
+          <imsss:sequencingRules>
+            <imsss:exitConditionRule>
+              <imsss:ruleConditions conditionCombination="all">
+                <imsss:ruleCondition referencedObjective="" measureThreshold="" operator="noOp" condition="completed"/>
+              </imsss:ruleConditions>
+              <imsss:ruleAction action="exit"/>
+            </imsss:exitConditionRule>
+            <imsss:postConditionRule>
+              <imsss:ruleConditions conditionCombination="all">
+                <imsss:ruleCondition referencedObjective="" measureThreshold="" operator="noOp" condition="completed"/>
+              </imsss:ruleConditions>
+              <imsss:ruleAction action="previous"/>
+            </imsss:postConditionRule>
+          </imsss:sequencingRules>
+          <imsss:rollupRules rollupObjectiveSatisfied="true" rollupProgressCompletion="true" objectiveMeasureWeight="1.0000">
+            <imsss:rollupRule childActivitySet="atLeastPercent" minimumCount="0" minimumPercent="0.5">
+              <imsss:rollupConditions conditionCombination="any">
+                <imsss:rollupCondition operator="noOp" condition="completed"/>
+                <imsss:rollupCondition operator="noOp" condition="objectiveMeasureKnown"/>
+              </imsss:rollupConditions>
+              <imsss:rollupAction action="completed"/>
+            </imsss:rollupRule>
+          </imsss:rollupRules>
+        </imsss:sequencing>
+      </itemData>
+      <item identifier="activity_3" href="resources/Activity.htm?tc=ELECOATest_RU-04bd&amp;act=3" coType="SCORMSco">
+        <title>Activity 3</title>
+        <itemData xmlns:imsss="http://www.imsglobal.org/xsd/imsss" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3" xmlns:adlseq="http://www.adlnet.org/xsd/adlseq_v1p3" xmlns:adlnav="http://www.adlnet.org/xsd/adlnav_v1p3">
+          <imsss:sequencing>
+            <imsss:controlMode choice="true" choiceExit="true" flow="false" forwardOnly="false" useCurrentAttemptObjectiveInfo="true" useCurrentAttemptProgressInfo="true"/>
+            <imsss:rollupRules rollupObjectiveSatisfied="true" rollupProgressCompletion="true" objectiveMeasureWeight="1.000"/>
+            <imsss:objectives>
+              <imsss:primaryObjective satisfiedByMeasure="false" objectiveID="">
+                <imsss:minNormalizedMeasure>1.0</imsss:minNormalizedMeasure>
+              </imsss:primaryObjective>
+            </imsss:objectives>
+            <imsss:deliveryControls tracked="true" completionSetByContent="false" objectiveSetByContent="false"/>
+            <adlseq:constrainedChoiceConsiderations preventActivation="false" constrainChoice="false"/>
+            <adlseq:rollupConsiderations requiredForSatisfied="always" requiredForNotSatisfied="always" requiredForCompleted="always" requiredForIncomplete="always" measureSatisfactionIfActive="true"/>
+          </imsss:sequencing>
+        </itemData>
+      </item>
+      <item identifier="activity_4" href="resources/Activity.htm?tc=ELECOATest_RU-04bd&amp;act=4" coType="SCORMSco">
+        <title>Activity 4</title>
+        <itemData xmlns:imsss="http://www.imsglobal.org/xsd/imsss" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3" xmlns:adlseq="http://www.adlnet.org/xsd/adlseq_v1p3" xmlns:adlnav="http://www.adlnet.org/xsd/adlnav_v1p3">
+          <imsss:sequencing>
+            <imsss:controlMode choice="true" choiceExit="true" flow="false" forwardOnly="false" useCurrentAttemptObjectiveInfo="true" useCurrentAttemptProgressInfo="true"/>
+            <imsss:rollupRules rollupObjectiveSatisfied="true" rollupProgressCompletion="true" objectiveMeasureWeight="1.000"/>
+            <imsss:objectives>
+              <imsss:primaryObjective satisfiedByMeasure="false" objectiveID="">
+                <imsss:minNormalizedMeasure>1.0</imsss:minNormalizedMeasure>
+              </imsss:primaryObjective>
+            </imsss:objectives>
+            <imsss:deliveryControls tracked="true" completionSetByContent="false" objectiveSetByContent="false"/>
+            <adlseq:constrainedChoiceConsiderations preventActivation="false" constrainChoice="false"/>
+            <adlseq:rollupConsiderations requiredForSatisfied="always" requiredForNotSatisfied="always" requiredForCompleted="always" requiredForIncomplete="always" measureSatisfactionIfActive="true"/>
+          </imsss:sequencing>
+        </itemData>
+      </item>
+      <item identifier="activity_5" href="resources/Activity.htm?tc=ELECOATest_RU-04bd&amp;act=5" coType="SCORMSco">
+        <title>Activity 5</title>
+        <itemData xmlns:imsss="http://www.imsglobal.org/xsd/imsss" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3" xmlns:adlseq="http://www.adlnet.org/xsd/adlseq_v1p3" xmlns:adlnav="http://www.adlnet.org/xsd/adlnav_v1p3">
+          <imsss:sequencing>
+            <imsss:controlMode choice="true" choiceExit="true" flow="false" forwardOnly="false" useCurrentAttemptObjectiveInfo="true" useCurrentAttemptProgressInfo="true"/>
+            <imsss:rollupRules rollupObjectiveSatisfied="true" rollupProgressCompletion="true" objectiveMeasureWeight="1.000"/>
+            <imsss:objectives>
+              <imsss:primaryObjective satisfiedByMeasure="false" objectiveID="">
+                <imsss:minNormalizedMeasure>1.0</imsss:minNormalizedMeasure>
+              </imsss:primaryObjective>
+            </imsss:objectives>
+            <imsss:deliveryControls tracked="true" completionSetByContent="false" objectiveSetByContent="false"/>
+            <adlseq:constrainedChoiceConsiderations preventActivation="false" constrainChoice="false"/>
+            <adlseq:rollupConsiderations requiredForSatisfied="always" requiredForNotSatisfied="always" requiredForCompleted="always" requiredForIncomplete="always" measureSatisfactionIfActive="true"/>
+          </imsss:sequencing>
+        </itemData>
+      </item>
+    </item>
+    <item identifier="activity_6" href="resources/Activity.htm?tc=ELECOATest_RU-04bd&amp;act=6" coType="SCORMSco">
+      <title>Activity 6</title>
+      <itemData xmlns:imsss="http://www.imsglobal.org/xsd/imsss" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3" xmlns:adlseq="http://www.adlnet.org/xsd/adlseq_v1p3" xmlns:adlnav="http://www.adlnet.org/xsd/adlnav_v1p3">
+        <imsss:sequencing>
+          <imsss:controlMode choice="true" choiceExit="true" flow="false" forwardOnly="false" useCurrentAttemptObjectiveInfo="true" useCurrentAttemptProgressInfo="true"/>
+          <imsss:rollupRules rollupObjectiveSatisfied="true" rollupProgressCompletion="true" objectiveMeasureWeight="1.000"/>
+          <imsss:objectives>
+            <imsss:primaryObjective satisfiedByMeasure="false" objectiveID="">
+              <imsss:minNormalizedMeasure>1.0</imsss:minNormalizedMeasure>
+            </imsss:primaryObjective>
+          </imsss:objectives>
+          <imsss:deliveryControls tracked="true" completionSetByContent="false" objectiveSetByContent="false"/>
+          <adlseq:constrainedChoiceConsiderations preventActivation="false" constrainChoice="false"/>
+          <adlseq:rollupConsiderations requiredForSatisfied="always" requiredForNotSatisfied="always" requiredForCompleted="always" requiredForIncomplete="always" measureSatisfactionIfActive="true"/>
+        </imsss:sequencing>
+      </itemData>
+    </item>
+  </item>
+  <objectives/>
+</manifest>

@@ -1,0 +1,28 @@
+table {
+  border: 1px solid #999;
+  border-spacing: 0px;
+}
+tr {
+}
+td {
+  border: 1px solid #999;
+  padding: 20px;
+}
+th {
+  border: 1px solid #999;
+  background-color: #999;
+  color: #fff;
+  padding: 3px;
+}
+div.i0 {
+
+}
+div.i1 {
+  padding-left: 20px;
+}
+div.i2 {
+  padding-left: 40px;
+}
+div.i3 {
+  padding-left: 60px;
+}

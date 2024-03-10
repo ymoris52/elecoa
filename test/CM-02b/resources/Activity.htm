@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja" dir="ltr">
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+  <link rel="stylesheet" href="./sco.css" media="screen, print" title="default style" type="text/css" />
+  <script type="text/javascript" src="./sco.js"></script>
+  <script type="text/javascript">
+   // <![CDATA[
+    function getCookie(name)
+    {
+     var result = null;
+
+     var cookieName = name + '=';
+     var allcookies = document.cookie;
+
+     var position = allcookies.indexOf(cookieName);
+     if (position != -1) {
+      var startIndex = position + cookieName.length;
+      var endIndex = allcookies.indexOf( ';', startIndex);
+      if (endIndex == -1) {
+       endIndex = allcookies.length;
+      }
+
+      result = decodeURIComponent(allcookies.substring(startIndex, endIndex));
+     }
+
+     return result;
+    }
+
+    function highlightStep() {
+     var tr = document.getElementById('step' + steps.length);
+     if (!tr) { return; }
+     tr.style.background = '#fbeed5';
+     var h = 0;
+     for (var i=1; i < steps.length; i++) {
+      h += document.getElementById('step' + i).offsetHeight;
+     }
+     document.getElementById("steps_container").scrollTop = h;
+    }
+
+    function resetSteps() {
+     var i = 1;
+     var tr = document.getElementById('step' + i);
+     while (tr != null) {
+      tr.style.background = '#fff';
+      i++;
+      tr = document.getElementById('step' + i);
+     }
+     document.cookie = ('steps=' + page);
+     steps = getCookie('steps').split(',');
+     highlightStep();
+    }
+   // ]]>
+  </script>
+  <script type="text/javascript">
+   // <![CDATA[
+    var param = location.search.split("&");;
+    var page = param[param.length - 1];
+    page = page.replace("act=","")
+    var API = null;
+    window.onload = function() {
+     myInit();
+    }
+    window.onunload = function() {
+     myFin();
+    }
+   // ]]>
+  </script>
+  <title>Activity</title>
+ </head>
+ <body>
+  <div>
+   <div class="steps" style="float:left;margin:0px;width:40%;">
+   <script type="text/javascript">
+    // <![CDATA[
+     var steps_value = getCookie('steps');
+     if (!steps_value) {
+      document.cookie = ('steps=' + page);
+     } else {
+      document.cookie = ('steps=' + steps_value + ',' + page);
+     }
+     steps = getCookie('steps').split(',');
+    // ]]>
+   </script>
+   <div class="info">
+   もしこれが<b>最初の</b>ステップにもかかわらず<br /><b>ステップ 1 </b>が<span style="background-color:#fbeed5">ハイライト</span>されていないなら、<br />「ステップをリセットする」をクリックして<br /><b>ステップ 1 </b>が<span style="background-color:#fbeed5">ハイライト</span>されるようにしてください。
+    <input type="button" value="ステップをリセットする" onclick="resetSteps()" />
+   </div>
+   <div id="steps_container" style="height:400px;overflow-y:scroll;border:1px solid #eee;">
+   <table cellpadding="0" cellspacing="0">
+     <tr>
+       <th>ステップ</th><th>アクションと期待する結果</th>
+     </tr>
+     <tr id="step1">
+       <td>1</td>
+       <td>
+         <div class="result">Activity 1 が配信されましたか</div>
+         確認できれば、「次へ」を実行してください。
+       </td>
+     </tr>
+     <tr id="step2">
+       <td>2</td>
+       <td>
+         <div class="result">Activity 2 が配信されましたか</div>
+         確認できれば、「次へ」を実行してください。
+       </td>
+     </tr>
+     <tr id="step3">
+       <td>3</td>
+       <td>
+         <div class="result">Activity 3 が配信されましたか</div>
+         確認できれば、「前へ」を実行してください。
+       </td>
+     </tr>
+     <tr id="step4">
+       <td>4</td>
+       <td>
+         <div class="result">Activity 2 が配信されましたか</div>
+         確認できれば、Activity 2 の cmi.success_status を passed に設定し、「次へ」を実行してください。
+       </td>
+     </tr>
+     <tr id="step5">
+       <td>5</td>
+       <td>
+         <div class="result">Activity 3 が配信されましたか</div>
+         確認できれば、「前へ」を実行してください。
+       </td>
+     </tr>
+     <tr id="step6">
+       <td>6</td>
+       <td>
+         <div class="result">Activity 1 が配信されましたか</div>
+         確認できれば、「次へ」を実行してください。
+       </td>
+     </tr>
+     <tr id="step7">
+       <td>7</td>
+       <td>
+         <div class="result">Activity 3 が配信されましたか</div>
+         確認できれば、「前へ」を実行してください。
+       </td>
+     </tr>
+     <tr id="step8">
+       <td>8</td>
+       <td>
+         <div class="result">Activity 1 が配信されましたか</div>
+         結果を確認すれば、このテストは終了です。
+       </td>
+     </tr>
+   </table>
+   </div>
+   <script type="text/javascript">
+    // <![CDATA[
+     highlightStep();
+    // ]]>
+   </script>
+   </div>
+   <div><a href="#" onclick="window.open('information.htm', 'info', 'width=450, height=600, menubar=no, toolbar=no, scrollbars=yes');return false;">クリックしてこのテストケースの情報を表示</a></div>
+   <script type="text/javascript">
+    // <![CDATA[
+     window.document.open();
+     window.document.writeln("<h1>Activity " + page + "</h1>");
+     window.document.close();
+    // ]]>
+   </script>
+   <select id="p0" onchange="javascript:changeView(parseInt(this.value))">
+     <option value="0">PRIMARY</option>
+   </select>
+   <button type="button" onclick="javascript:changeStatus2('cmi.exit', 'suspend');this.disabled = true;">suspend</button>
+   <table summary="Status" id="status">
+    <thead>
+     <tr>
+      <th>Parameter</th>
+      <th>Current Status</th>
+      <th>Change to...</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>cmi.success_status</td>
+      <td id="p1"></td>
+      <td>
+       <button type="button" onclick="javascript:changeStatus('.success_status', 'passed');">passed</button>
+       <button type="button" onclick="javascript:changeStatus('.success_status', 'failed');">failed</button>
+      </td>
+     </tr>
+     <tr>
+      <td>cmi.score.scaled</td>
+      <td><input id="p2" type="text" size="5" value="" /></td>
+      <td>
+       <button type="button" onclick="javascript:changeStatus('.score.scaled',window.document.getElementById('p2').value)">SET</button>
+      </td>
+     </tr>
+     <tr>
+      <td>cmi.scaled_passing_score</td>
+      <td id="p3"></td>
+      <td>N/A</td>
+     </tr>
+     <tr>
+      <td>cmi.completion_status</td>
+      <td id="p4"></td>
+      <td>
+       <button type="button" onclick="javascript:changeStatus('.completion_status', 'completed');">completed</button>
+       <button type="button" onclick="javascript:changeStatus('.completion_status', 'incomplete');">incomplete</button>
+      </td>
+     </tr>
+     <tr>
+      <td>cmi.progress_measure</td>
+      <td><input id="p5" type="text" size="5" value="" /></td>
+      <td>
+              <button type="button" onclick="javascript:changeStatus('.progress_measure',window.document.getElementById('p5').value)">SET</button>
+      </td>
+     </tr>
+     <tr>
+      <td>completion_threshold</td>
+      <td id="p6"></td>
+      <td>N/A</td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+ </body>
+</html>

@@ -37,7 +37,7 @@ SCORMも利用できる機能が規格として定められているため、同
 
 - [ELECOA Player (player)](player/README.md)
 - [Moodleプラグイン (moodle)](moodle/README.md)
-- [マルチプラットフォーム学習環境 (multiplatform)](multiplatform/README.md)
+- [分散マルチプラットフォーム学習環境 (multiplatform)](multiplatform/README.md)
 - [テスト用コンテンツ (test)](test/README.md)
 
 [ELECOA PlayerとMoodleプラグインの更新履歴はこちら](History.md) (GitHubで管理する以前のバージョンの履歴も含む)

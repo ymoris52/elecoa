@@ -147,7 +147,7 @@
 	- イベントと標準ログ(logstore_standard)に対応しました。
 	- Moodle 2.8に対応しました。
 	- Moodleの要求バージョンを2.7に変更しました。`mod/elecoa/version.php`の`$module->requires`を変更すればMoodle 2.6にもインストールできますが、動作確認は行っておりません。
-	- コースのインスタンス一覧(mod/elecoa/index.php)が動作しなくなっていた問題を修正しました。
+	- コースのインスタンス一覧(`mod/elecoa/index.php`)が動作しなくなっていた問題を修正しました。
 
 ## 2014年12月13日
 - [共通]

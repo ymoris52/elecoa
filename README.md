@@ -40,6 +40,9 @@ SCORMも利用できる機能が規格として定められているため、同
 - [分散マルチプラットフォーム学習環境 (multiplatform)](multiplatform/README.md)
 - [テスト用コンテンツ (test)](test/README.md)
 
+ELECOA PlayerとMoodleプラグインは、[Releases](releases)からもダウンロードできます。
+ELECOA Playerは[`elecoa_player.tar.bz2`](/releases/latest/download/elecoa_player.tar.bz2)または[`elecoa_player.zip`](/releases/latest/download/elecoa_player.zip)を、Moodleプラグインは[`moodle_elecoa.tar.bz2`](/releases/latest/download/moodle_elecoa.tar.bz2)または[`moodle_elecoa.zip`](/releases/latest/download/moodle_elecoa.zip)をダウンロードしてください。
+
 [ELECOA PlayerとMoodleプラグインの更新履歴はこちら](History.md) (GitHubで管理する以前のバージョンの履歴も含む)
 
 ## 連絡先

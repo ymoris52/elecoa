@@ -22,3 +22,6 @@ PHPの設定(`post_max_size`, `upload_max_filesize`)も確認してください�
 
 `init_www.php`で定義(`define`)している`show_log`の値を`TRUE`に変更すると、ELECOA Playerでログが閲覧できるようになります。
 ログを閲覧するには、ログイン後の画面に設置されるリンク「View log files」を選択してください。
+
+ELECOA Playerは、[Releases](https://github.com/ymoris52/elecoa/releases)からもダウンロードできます。
+[`elecoa_player.tar.bz2`](https://github.com/ymoris52/elecoa/releases/latest/download/elecoa_player.tar.bz2)または[`elecoa_player.zip`](https://github.com/ymoris52/elecoa/releases/latest/download/elecoa_player.zip)をダウンロードしてください。

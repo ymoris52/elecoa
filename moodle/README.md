@@ -19,3 +19,6 @@ cmi5コースを動作させるためには、ソースコードを編集して�
 `$CMI5CFG->lrs_authorization`は、LRSの認可トークン(authorization token)です。
 本プラグインでは、AUはMoodleを経由してLRSと通信します。
 LRSはMoodleを信頼することを前提に、Moodle-LRS間の通信には固定の認可トークンを用います。
+
+Moodleプラグインは、[Releases](https://github.com/ymoris52/elecoa/releases)からもダウンロードできます。
+[`moodle_elecoa.tar.bz2`](https://github.com/ymoris52/elecoa/releases/latest/download/moodle_elecoa.tar.bz2)または[`moodle_elecoa.zip`](https://github.com/ymoris52/elecoa/releases/latest/download/moodle_elecoa.zip)をダウンロードしてください。

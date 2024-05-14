@@ -4,6 +4,7 @@ ADLが配布しているSCORM 2004 3rd Edition LMS Test Packagesに含まれる�
 オリジナルのパッケージは、Conformance Test Suiteを使って自動的に実行されます。
 ここで配布しているテスト用コンテンツは、手作業で実行できるように、ステップの説明を記載したインタフェースをつけています。
 SCORM 2004の学習や、SCORM 2004対応LMSの動作確認などに利用できます。
+`test`ディレクトリ内のZIPファイル(`CM-02b.zip`、`RU-04ba.zip`、…)をダウンロードしてください。
 いずれも、ELECOAとSCORM 2004のハイブリッドパッケージになっています。
 
 - CM-02b

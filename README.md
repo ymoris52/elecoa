@@ -35,10 +35,10 @@ SCORMも利用できる機能が規格として定められているため、同
 
 ## ソフトウェア・関連配布物
 
-- [ELECOA Player (player)](player/README.md)
-- [Moodleプラグイン (moodle)](moodle/README.md)
-- [分散マルチプラットフォーム学習環境 (multiplatform)](multiplatform/README.md)
-- [テスト用コンテンツ (test)](test/README.md)
+- [ELECOA Player (`player`)](player/README.md)
+- [Moodleプラグイン (`moodle`)](moodle/README.md)
+- [分散マルチプラットフォーム学習環境 (`multiplatform`)](multiplatform/README.md)
+- [テスト用コンテンツ (`test`)](test/README.md)
 
 ELECOA PlayerとMoodleプラグインは、[Releases](https://github.com/ymoris52/elecoa/releases)からもダウンロードできます。
 ELECOA Playerは[`elecoa_player.tar.bz2`](https://github.com/ymoris52/elecoa/releases/latest/download/elecoa_player.tar.bz2)または[`elecoa_player.zip`](https://github.com/ymoris52/elecoa/releases/latest/download/elecoa_player.zip)を、Moodleプラグインは[`moodle_elecoa.tar.bz2`](https://github.com/ymoris52/elecoa/releases/latest/download/moodle_elecoa.tar.bz2)または[`moodle_elecoa.zip`](https://github.com/ymoris52/elecoa/releases/latest/download/moodle_elecoa.zip)をダウンロードしてください。

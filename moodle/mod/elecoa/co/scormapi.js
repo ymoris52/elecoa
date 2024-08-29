@@ -1698,7 +1698,12 @@ Terminate = function(s) {
     _setStatus("Terminated");
     top.ScormAPIAdapter.setTerminated();   // Notify the termination status to scormapiadapter.js
 
-    if (_exit) { _adCommand = 'exitAll'; }
+    var commandSaved = top.ScormAPIAdapter.commandSaved();
+    if (commandSaved) {
+        _adlCommand = '';
+    }
+
+    if (_exit) { _adlCommand = 'exitAll'; }
 
     if ((_adlCommand != '') && (_adlCommand != '_none_')) {
         var cmd = '';

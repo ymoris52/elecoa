@@ -61,12 +61,7 @@ var ElecoaCore = (function() {
                     xmlHttp.open("POST", "mainmodule.php?CID=" + encodeURIComponent(top.content_id) + "&" + params, false);
                     xmlHttp.send(data);
                 }, 0);
-                var timer = setInterval(function() {
-                    result = xmlHttp.responseText;
-                    if (result != "") {
-                        clearInterval(timer);
-                    }
-                }, 100);
+                result = "result=true\nNextID=\n";
             }
             return result;
         }, 

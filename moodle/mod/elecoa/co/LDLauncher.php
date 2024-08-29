@@ -7,6 +7,7 @@ class LDLauncher extends LDSimpleLeaf {
     protected $cancelCmd;
     protected $title;
     protected $secret;
+    protected $groupingCode;
 
     function addCommands() {
         parent::addCommands();
@@ -21,13 +22,17 @@ class LDLauncher extends LDSimpleLeaf {
         $this->cancelCmd = $launcher->getAttribute('cancelCmd');
         $this->secret = $launcher->getAttribute('secret');
         $this->title = $launcher->getAttribute('title');
+        $this->groupingCode = $launcher->getAttribute('groupingCode');
     }
 
-    private function create_token($user)
+    private function create_token($user, $course)
     {
         $secret = $this->secret;
         $key = $secret;
         $value = $user . ':' . rand() . ':' . time();
+        if (!empty($this->groupingCode)) {
+            $value .= ':' . $course . $this->groupingCode;
+        }
 	    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length("AES-128-CBC"));
 	    $raw = openssl_encrypt($value, "AES-128-CBC", $key, $options=OPENSSL_RAW_DATA, $iv);
 	    $hmac = hash_hmac('sha256', $raw, $key, $as_binary=true);
@@ -37,7 +42,8 @@ class LDLauncher extends LDSimpleLeaf {
     function exeToken($val, $rtm) {
         $ctx = $this->getContext();
         $uid = $ctx->getUid();
-        return array('Result' => TRUE, 'Continue' => FALSE, 'Value' => 'token=' . $this->create_token($uid));
+        $cid = $ctx->getCid();
+        return array('Result' => TRUE, 'Continue' => FALSE, 'Value' => 'token=' . $this->create_token($uid, $cid));
     }
 
     function getLDInitData() {

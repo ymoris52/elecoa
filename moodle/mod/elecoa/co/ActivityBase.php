@@ -24,9 +24,10 @@
         function __construct (&$ctx, $num, $node, $res, &$objectives) {
             $this->context = $ctx;
             $this->strID = $node->getAttribute('identifier');
-            $n = selectSingleNode($node, 'title');
+            $snode = new SerializableNode($node);
+            $n = selectSingleNode($snode, 'title');
             $this->strTitle = is_null($n) ? '' : $n->nodeValue;
-            $this->dataNode = selectSingleNode($node, 'itemData');
+            $this->dataNode = selectSingleNode($snode, 'itemData');
             $this->parent = $num;
             $this->children = array();
             $this->isActive = FALSE;

@@ -127,8 +127,13 @@ var ScormAPIAdapterClass = (function() {
         saveCommand: function(command) {
             this._savedCommand = command;
         }, 
-        
-        
+
+
+        commandSaved: function() {
+            return this._savedCommand != '';
+        },
+
+
         /**
          * INITRTMの結果を保存する。
          * @param {Object} result

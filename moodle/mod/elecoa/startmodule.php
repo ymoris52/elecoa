@@ -83,7 +83,10 @@ $doc = new DOMDocument();
 if (!$doc->loadXML($manifest->get_content())) {
     elecoa_print_error('incorrectmanifest');
 }
-$activity_root_node = selectSingleNode($doc->documentElement, 'item');
+
+$manifestNode = $doc->documentElement;
+
+$activity_root_node = selectSingleDOMNode($manifestNode, 'item');
 if (is_null($activity_root_node)) {
     elecoa_print_error('incorrectmanifest');
 }
@@ -96,9 +99,9 @@ if (!($log->makeLogReady($uid, $cid, $attempt_number, $sgo))) {
 
 // 学習目標のインスタンス化
 $objectives = array();
-$objective_root_node = selectSingleNode($doc->documentElement, 'objectives');
+$objective_root_node = selectSingleDOMNode($manifestNode, 'objectives');
 if (!is_null($objective_root_node)) {
-    foreach (selectNodes($objective_root_node, 'objective') as $objective_node) {
+    foreach (selectDOMNodes($objective_root_node, 'objective') as $objective_node) {
         $objective_node_id = $objective_node->getAttribute('id');
         $objective_node_cotype = $objective_node->getAttribute('coType');
         $objectives[$objective_node_id] = new $objective_node_cotype($elecoa_context, $objective_node_id, $objective_node, $resume, $sgo);
@@ -112,7 +115,7 @@ if ($activity_root_node_cotype === '') {
     elecoa_print_error('incorrectmanifest');
 }
 $maketree = function($node, $parent_node_index) use (&$maketree, &$activities, &$objectives, $resume, &$elecoa_context) {
-    foreach (selectNodes($node, 'item') as $child_node) {
+    foreach (selectDOMNodes($node, 'item') as $child_node) {
         $child_node_cotype = $child_node->getAttribute('coType');
         $activities[] = new $child_node_cotype($elecoa_context, $parent_node_index, $child_node, $resume, $objectives);
         $child_node_index = count($activities) - 1;
@@ -138,8 +141,7 @@ if ($resume) {
     if ($current_node_id === FALSE) {
         elecoa_print_error('error');
     }
-}
-else {
+} else {
     $current_node_id = $activity_root_node->getAttribute('startID');
 }
 
@@ -150,8 +152,7 @@ if ($current_node_id === '') {
     else
         $current_node_id = "";
 
-}
-else {
+} else {
     $current_node_index = find_activity_by_id($activities, $current_node_id);
     if ($current_node_index === FALSE) {
         elecoa_print_error('error');

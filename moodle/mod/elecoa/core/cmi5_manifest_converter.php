@@ -52,7 +52,7 @@ class cmi5_manifest_converter {
     }
 
     private function convert_courseStructure($courseStructure, $elecoa_manifest) {
-        $course = selectSingleNode($courseStructure, 'course');
+        $course = selectSingleDOMNode($courseStructure, 'course');
 
         // item
         $elecoa_item = $this->elecoa_doc->createElement('item');
@@ -66,8 +66,8 @@ class cmi5_manifest_converter {
         
         // title
         $elecoa_title = $this->elecoa_doc->createElement('title');
-        $title = selectSingleNode($course, 'title');
-        $langstringNodes = selectNodes($title, 'langstring');
+        $title = selectSingleDOMNode($course, 'title');
+        $langstringNodes = selectDOMNodes($title, 'langstring');
         $elecoa_title_content = '';
         foreach ($langstringNodes as $langstring) {
             $lang = $langstring->getAttribute('lang');
@@ -105,8 +105,8 @@ class cmi5_manifest_converter {
 
         // title
         $elecoa_title = $this->elecoa_doc->createElement('title');
-        $title = selectSingleNode($au, 'title');
-        $langstringNodes = selectNodes($title, 'langstring');
+        $title = selectSingleDOMNode($au, 'title');
+        $langstringNodes = selectDOMNodes($title, 'langstring');
         $elecoa_title_content = '';
         foreach ($langstringNodes as $langstring) {
             $lang = $langstring->getAttribute('lang');
@@ -129,7 +129,7 @@ class cmi5_manifest_converter {
         $elecoa_launcher->setAttribute('auId', $au->getAttribute('id'));
 
         // baseUrl
-        $url = selectSingleNode($au, 'url');
+        $url = selectSingleDOMNode($au, 'url');
         $elecoa_launcher->setAttribute('baseUrl', trim($url->nodeValue));
 
         // launchMethod
@@ -159,7 +159,7 @@ class cmi5_manifest_converter {
         }
 
         // launchParameters
-        $launchParameters = selectSingleNode($au, 'launchParameters');
+        $launchParameters = selectSingleDOMNode($au, 'launchParameters');
         if (!is_null($launchParameters)) {
             $elecoa_launchParameters = $this->elecoa_doc->createElement('launchParameters');
             $elecoa_launchParameters->nodeValue = trim($launchParameters->nodeValue);
@@ -167,7 +167,7 @@ class cmi5_manifest_converter {
         }
 
         // entitlementKey
-        $entitlementKey = selectSingleNode($au, 'entitlementKey');
+        $entitlementKey = selectSingleDOMNode($au, 'entitlementKey');
         if (!is_null($entitlementKey)) {
             $elecoa_entitlementKey = $this->elecoa_doc->createElement('entitlementKey');
             $elecoa_entitlementKey->nodeValue = trim($entitlementKey->nodeValue);
@@ -184,8 +184,8 @@ class cmi5_manifest_converter {
 
         // title
         $elecoa_title = $this->elecoa_doc->createElement('title');
-        $title = selectSingleNode($block, 'title');
-        $langstringNodes = selectNodes($title, 'langstring');
+        $title = selectSingleDOMNode($block, 'title');
+        $langstringNodes = selectDOMNodes($title, 'langstring');
         $elecoa_title_content = '';
         foreach ($langstringNodes as $langstring) {
             $lang = $langstring->getAttribute('lang');

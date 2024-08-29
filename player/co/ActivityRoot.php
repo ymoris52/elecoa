@@ -14,7 +14,8 @@
         }
 
         public function callFromChild($id, $cmd, $val, $activityId) {
-            $this->co_trace();
+            //$this->co_trace();
+            $this->co_trace('', false, true);
             if (array_key_exists($cmd, $this->cmdTableFromChild)) {
                 // コマンド定義あり
                 $method = $this->cmdTableFromChild[$cmd]['Func'];
@@ -25,7 +26,8 @@
         }
 
         public function callFromObjective($objectiveId, $cmd, $val) {
-            $this->co_trace();
+            //$this->co_trace();
+            $this->co_trace('', false, true);
             if (array_key_exists($cmd, $this->cmdTableFromObjective)) {
                 $method = $this->cmdTableFromObjective[$cmd]['Func'];
                 return $this->$method($objectiveId, $val);

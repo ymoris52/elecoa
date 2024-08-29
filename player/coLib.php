@@ -51,7 +51,7 @@ class colib {
         $lastNum = count($actArray) - 1;
         $actArray[$blockidx]->addChild($lastNum);
         $makeTree = function ($node, $parent, $res, &$context, &$actArray, &$objArray) use (&$makeTree) {
-            foreach (selectNodes($node, 'item') as $item) {
+            foreach (selectDOMNodes($node, 'item') as $item) {
                 $classname = $item->getAttribute('coType');
                 $actArray[] = new $classname($context, $parent, $item, $res, $objArray);
                 $lastNum = count($actArray) - 1;
@@ -75,9 +75,9 @@ class colib {
         $doc->loadXML($manifest);
         $ogs = $doc->documentElement->getAttribute('oGS');
         $sgo =  $ogs === 'true';
-        $objectives = selectSingleNode($doc->documentElement, 'objectives');
+        $objectives = selectSingleDOMNode($doc->documentElement, 'objectives');
         if (!is_null($objectives)) {
-            foreach (selectNodes($objectives, 'objective') as $objective) {
+            foreach (selectDOMNodes($objectives, 'objective') as $objective) {
                 $objective_cotype = $objective->getAttribute('coType');
                 $objective_id = $objective->getAttribute('id');
                 $objArray[$objective_id] = new $objective_cotype($ctx, $objective_id, $objective, FALSE, $sgo);
@@ -95,7 +95,7 @@ class colib {
             return colib::searchActivity($activityId, $actArray);
         };
         $makeTree = function ($node, $parent, $res, &$context, &$actArray, &$objArray) use (&$makeTree, &$searchActivity, $uid) {
-            foreach (selectNodes($node, 'item') as $item) {
+            foreach (selectDOMNodes($node, 'item') as $item) {
                 $classname = $item->getAttribute('coType');
                 $id = $item->getAttribute('identifier');
                 //$item->setAttribute('identifier', $topid . '-' . $id);

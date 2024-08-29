@@ -472,17 +472,19 @@
             $cmd = 'CHOICE';
 
             $preCheck = $this->checkPreCondition('CHOICE', NULL, $val, TRUE);
-            if ($this->isCheckResultError($preCheck)) {
-                $retArray['Result'] = FALSE;
-                $retArray['Continue'] = FALSE;
-                $retArray['Error'] = $preCheck['Description'];
-                return $retArray;
-            }
-            if ($preCheck['Result'] === 'skip') {
-                $retArray['Result'] = TRUE;
-                $retArray['Continue'] = TRUE;
-                return $retArray;
-            }
+            // FIX: CM-07c
+            //if ($this->isCheckResultError($preCheck)) {
+            //    $retArray['Result'] = FALSE;
+            //    $retArray['Continue'] = FALSE;
+            //    $retArray['Error'] = $preCheck['Description'];
+            //    return $retArray;
+            //}
+            // FIX: CM-04c
+            //if ($preCheck['Result'] === 'skip') {
+            //    $retArray['Result'] = TRUE;
+            //    $retArray['Continue'] = TRUE;
+            //    return $retArray;
+            //}
             if ($this->getID() === $val) {// このブロックの選択
                 $cmd = 'CONTINUE'; // CONTINUE に変更
             }

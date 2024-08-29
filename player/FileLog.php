@@ -61,7 +61,9 @@ class FileLog extends LogBase
         if($sgo) {
             $objDir = $this->log_path . '/GO/' . urlencode($uid);
         } else {
-            $objDir = $logDir . '/GO';
+            // FIX: OB-03b
+            //$objDir = $logDir . '/GO';
+            $objDir = $log_base . '/GO';
         }
         if (!file_exists($objDir) and !mkdir($objDir, 0755, TRUE)) {
             return FALSE;
@@ -99,6 +101,9 @@ class FileLog extends LogBase
             $lines = array();
             $lcount = 0;
             while (!feof($fp)) {
+                if (!isset($keys[$lcount])) {
+                    break;
+                }
                 $lines[$keys[$lcount]] = trim(fgets($fp));
                 $lcount++;
             }
@@ -149,12 +154,14 @@ class FileLog extends LogBase
         }
     }
 
-    protected function log_dir($ctx, $type, $global_to_system) {
+    private function log_dir($ctx, $type, $global_to_system) {
         if ($type == 'Objective') {
             if ($global_to_system) {
                 return $this->log_path . '/GO/' . urlencode($ctx->getUid());
             } else {
-                return $this->log_base($ctx->getUid(), $ctx->getCid()) . '/' . $ctx->getAttemptCount() . '/GO';
+                //return $this->log_base($ctx->getUid(), $ctx->getCid()) . '/' . $ctx->getAttemptCount() . '/GO';
+                // FIX: OB-03b
+                return $this->log_base($ctx->getUid(), $ctx->getCid()) . '/GO';
             }
         } else {
             return $this->log_base($ctx->getUid(), $ctx->getCid()) . '/' . $ctx->getAttemptCount();
@@ -162,7 +169,7 @@ class FileLog extends LogBase
     }
 
     // コンテンツ名 (格納ディレクトリ名) から、ログディレクトリ名 (アテンプト番号は含まない) を返す
-    protected function log_base($uid, $cid) {
+    private function log_base($uid, $cid) {
         $log_base = $this->log_path . '/' . $cid . '/' . urlencode($uid);
         return $log_base;
     }

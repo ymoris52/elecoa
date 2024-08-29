@@ -69,7 +69,7 @@ class SCORMRoot extends SimpleRoot {
     }
 
     private function set_node_value(&$parent_node, $node_name, $node_value) {
-        $node = selectSingleNode($parent_node, $node_name);
+        $node = selectSingleDOMNode($parent_node, $node_name);
         if ($node) {
             $node->nodeValue = $node_value;
         } else {
@@ -243,7 +243,7 @@ class SCORMRoot extends SimpleRoot {
 
     private function exeRollup_Using_Rules($checkSatisfied, $isCurrenetO, $isCurrenetA) {
         $this->co_trace();
-        $actions = $checkSatisfied ? array('satisfied', 'notSatisfied', 'incomplete', 'completed') : array('incomplete', 'completed');
+        $actions = $checkSatisfied ? array('notSatisfied', 'satisfied', 'incomplete', 'completed') : array('incomplete', 'completed');
         foreach ($actions as $str) {
             $tmpAry = $this->seqParam->getRollupRules($str);
             $len = count($tmpAry);
@@ -353,7 +353,9 @@ class SCORMRoot extends SimpleRoot {
                     } else {
                         $retArray['Result'] = TRUE;
                         $retArray['Continue'] = TRUE;
-                        $retArray['Value'] = array('command' => 'EXITALL', 'value' => NULL, 'activityId' => $this->getID());
+                        // FIX: RU-08b
+                        //$retArray['Value'] = array('command' => 'EXITALL', 'value' => NULL, 'activityId' => $this->getID());
+                        $retArray['Value'] = array('command' => $val['value'], 'value' => NULL, 'activityId' => $this->getID());
                     }
                 } else {
                     $retArray['Result'] = TRUE;

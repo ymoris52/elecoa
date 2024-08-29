@@ -61,7 +61,9 @@ class FileLog extends LogBase
         if($sgo) {
             $objDir = $this->log_path . '/GO/' . urlencode($uid);
         } else {
-            $objDir = $logDir . '/GO';
+            // FIX: OB-03b
+            //$objDir = $logDir . '/GO';
+            $objDir = $log_base . '/GO';
         }
         if (!file_exists($objDir) and !mkdir($objDir, 0755, TRUE)) {
             return FALSE;
@@ -99,6 +101,9 @@ class FileLog extends LogBase
             $lines = array();
             $lcount = 0;
             while (!feof($fp)) {
+                if (!isset($keys[$lcount])) {
+                    break;
+                }
                 $lines[$keys[$lcount]] = trim(fgets($fp));
                 $lcount++;
             }
@@ -154,7 +159,9 @@ class FileLog extends LogBase
             if ($global_to_system) {
                 return $this->log_path . '/GO/' . urlencode($ctx->getUid());
             } else {
-                return $this->log_base($ctx->getUid(), $ctx->getCid()) . '/' . $ctx->getAttemptCount() . '/GO';
+                //return $this->log_base($ctx->getUid(), $ctx->getCid()) . '/' . $ctx->getAttemptCount() . '/GO';
+                // FIX: OB-03b
+                return $this->log_base($ctx->getUid(), $ctx->getCid()) . '/GO';
             }
         } else {
             return $this->log_base($ctx->getUid(), $ctx->getCid()) . '/' . $ctx->getAttemptCount();

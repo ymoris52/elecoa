@@ -1,5 +1,5 @@
 <?php
-define('INIT_WWW_CUSTOM_SETUP', TRUE);
+#define('INIT_WWW_CUSTOM_SETUP', TRUE);
 
 require_once(dirname(__FILE__) . '/core/init_www.php');
 

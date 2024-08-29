@@ -66,7 +66,7 @@ $doc = new DOMDocument();
 if (!$doc->loadXML($manifest->get_content())) {
     elecoa_print_error('incorrectmanifest');
 }
-$root_node = selectSingleNode($doc->documentElement, 'item');
+$root_node = selectSingleDOMNode($doc->documentElement, 'item');
 if (is_null($root_node)) {
     elecoa_print_error('incorrectmanifest');
 }

@@ -120,7 +120,7 @@ class Platform {
             if ($user === $uid) {
                 $participantObjectives[] = $objectiveKeyValue;
             } else {
-                $file = log_path . '/' . $cid . '/'. $user . '/1/GO/' . $objectiveId . '.ini';
+                $file = log_path . '/' . $cid . '/'. $user . '/GO/' . $objectiveId . '.ini';
                 if (is_readable($file) && filesize($file) > 0) {
                     $fileContent = file_get_contents($file);
                     $participantObjectives[] = array('owner' => FALSE, 'userId' => $user, 'objectiveId' => $objectiveId, 'objectiveValue' => substr($fileContent, strlen('value=')));
@@ -175,15 +175,15 @@ class Platform {
         } else {
             $sgo = FALSE;
         }
-        $objectives = selectSingleNode($doc->documentElement, 'objectives');
+        $objectives = selectSingleDOMNode($doc->documentElement, 'objectives');
         if (!is_null($objectives)) {
-            foreach (selectNodes($objectives, 'objective') as $objective) {
+            foreach (selectDOMNodes($objectives, 'objective') as $objective) {
                 $objective_cotype = $objective->getAttribute('coType');
                 $objective_id = $objective->getAttribute('id');
                 $objArray[$objective_id] = new $objective_cotype($ctx, $objective_id, $objective, FALSE, $sgo);
             }
         }
-        $item = selectSingleNode($doc->documentElement, 'item');
+        $item = selectSingleDOMNode($doc->documentElement, 'item');
         //$classname = $item->getAttribute('coType');
         $topid = $item->getAttribute('identifier');
         $lastNum = $blockidx;
@@ -199,7 +199,7 @@ class Platform {
         //}
         $makeTree = function ($node, $parent, $res, &$context, &$actArray, &$objArray) use (&$makeTree, &$searchActivity, $topid) {
             $appendedTopIndex = -1;
-            foreach (selectNodes($node, 'item') as $item) {
+            foreach (selectDOMNodes($node, 'item') as $item) {
                 $classname = $item->getAttribute('coType');
                 $id = $item->getAttribute('identifier');
                 //$item->setAttribute('identifier', $topid . '-' . $id);

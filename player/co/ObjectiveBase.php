@@ -40,15 +40,15 @@
             $result = '';
 
             if (isset($trace['file'])) {
-                $result .= $trace['file'] . ' ';
+                //$result .= $trace['file'] . ' ';
             }
             if (isset($trace['line'])) {
-                $result .= '(' . $trace['line'] . ') ';
+                //$result .= '(' . $trace['line'] . ') ';
             }
             if (isset($trace['object'])) {
                 $result .= get_class($trace['object']);
 
-                if ($trace['object'] instanceof ActivityBase) {
+                if ($trace['object'] instanceof ObjectiveBase) {
                     $result .= '<' . $trace['object']->getID() . '>';
                 }
             }
@@ -97,7 +97,8 @@
         }
 
         public function callFromActivity($activityId, $cmd, $val) {
-            $this->co_trace();
+            //$this->co_trace();
+            $this->co_trace('', false, true);
             if (array_key_exists($cmd, $this->cmdTable)) {
                 $method = $this->cmdTable[$cmd]['Func'];
                 $this->$method($activityId, $val);
@@ -127,7 +128,8 @@
                     $str = $this->getTraceString($bt[1]);
                 }
                 if ($fh = fopen($trace_file, 'a+')) {
-                    fwrite($fh, date('Y/m/d H:i:s') . " $str  [ " . $this -> getID() . ' / ' . get_class($this) . " ]\n");
+                    //fwrite($fh, date('Y/m/d H:i:s') . " $str  [ " . $this -> getID() . ' / ' . get_class($this) . " ]\n");
+                    fwrite($fh, "$str\n");
                     if ($output_backtrace) {
                         foreach ($bt as $trace) {
                             fwrite($fh, $this->getTraceString($trace) . "\n");

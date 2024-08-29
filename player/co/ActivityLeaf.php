@@ -31,7 +31,8 @@
         }
 
         public function callFromParent($cmd, $val) {
-            $this->co_trace();
+            $this->co_trace('', false, true);
+            //$this->co_trace();
             $result = NULL;
 
             if (array_key_exists($cmd, $this->cmdTableFromParent)) {
@@ -45,7 +46,8 @@
         }
 
         public function callFromObjective($objectiveId, $cmd, $val) {
-            $this->co_trace();
+            $this->co_trace('', false, true);
+            //$this->co_trace();
             if (array_key_exists($cmd, $this->cmdTableFromObjective)) {
                 $method = $this->cmdTableFromObjective[$cmd]['Func'];
                 $result = $this->$method($objectiveId, $val);
@@ -67,11 +69,14 @@
                 if (isset($result['Continue']) and $result['Continue']) {
                     $valueForParent = isset($result['Value']) ? $result['Value'] : $val;
                     $retval = $this->getParent()->callFromChild($this->getID(), $cmd, $valueForParent, $activityId);
+                    $this->co_trace('end callCommand ' . $cmd, false, true);
                     return $retval;
                 } else {
+                    $this->co_trace('end callCommand ' . $cmd, false, true);
                     return $result;
                 }
             } else {
+                $this->co_trace('end callCommand ' . $cmd, false, true);
                 return $this->getParent()->callFromChild($this->getID(), $cmd, $val, $activityId);
             }
         }

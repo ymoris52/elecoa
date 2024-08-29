@@ -165,7 +165,6 @@ var Container = (function() {
                 this.showNavigationInterface();
                 return;
             }
-
             if (results.action) {
                 if (results.action.type == top.Core.ACTION_CLOSE) {
                     var document_element = top.document;
@@ -187,6 +186,12 @@ var Container = (function() {
                     var con = this;
                     setTimeout(function () {
                         con.moveTo(results.action.to);
+                    }, 0);
+                    return;
+                }
+                else {
+                    setTimeout(function () {
+                        top.Frameset.exitContent();
                     }, 0);
                     return;
                 }

@@ -95,21 +95,21 @@ class elecoa_manifest_converter
         $this->firstLeaf = '';
 
         // <resources>
-        if (is_null($M_resources = selectSingleNode($this->M_doc -> documentElement, 'resources'))) {
+        if (is_null($M_resources = selectSingleDOMNode($this->M_doc -> documentElement, 'resources'))) {
             return "Invalid imsmanifest.xml";
         }
 
         // Schema version get
         $schemaversion = '1.2';
-        $metadataNode = selectSingleNode($this->M_doc->documentElement, 'metadata');
+        $metadataNode = selectSingleDOMNode($this->M_doc->documentElement, 'metadata');
         if ($metadataNode) {
-            $schemaversionNode = selectSingleNode($metadataNode, 'schemaversion');
+            $schemaversionNode = selectSingleDOMNode($metadataNode, 'schemaversion');
             if ($schemaversionNode) {
                 $schemaversion = trim($schemaversionNode->nodeValue);
             }
         }
 
-        foreach (selectNodes($M_resources, 'resource') as $n) {
+        foreach (selectDOMNodes($M_resources, 'resource') as $n) {
             $url = $n -> getAttribute('href');
             if ($url === '') {
                 continue;
@@ -120,11 +120,11 @@ class elecoa_manifest_converter
         }
 
         // <organizations>
-        if (is_null($M_organizations = selectSingleNode($this->M_doc -> documentElement, 'organizations'))) {
+        if (is_null($M_organizations = selectSingleDOMNode($this->M_doc -> documentElement, 'organizations'))) {
             return "Invalid imsmanifest.xml";
         }
 
-        $M_Org = selectSingleNode($M_organizations, 'organization');
+        $M_Org = selectSingleDOMNode($M_organizations, 'organization');
 
         // <organization> が無い場合の対応 (SCORM2004では必須だが1.2では任意)
         if ( is_null($M_Org) ) {
@@ -134,7 +134,7 @@ class elecoa_manifest_converter
             $E_title = $this->M_doc -> createElement('title');
             $E_title -> nodeValue = $this->ContentID;
             $E_organization -> appendChild($E_title);
-            foreach (selectNodes($M_resources, 'resource') as $n) {
+            foreach (selectDOMNodes($M_resources, 'resource') as $n) {
                 // すべての<resource>への参照を<organization>の<item>として追加
                 $url = $n -> getAttribute('href');
                 if ($url === '') {
@@ -152,12 +152,12 @@ class elecoa_manifest_converter
             $M_organizations -> appendChild($E_organization);
             $M_organizations -> setAttribute('default', 'default_organization' );
 
-            $M_Org = selectSingleNode($M_organizations, 'organization');
+            $M_Org = selectSingleDOMNode($M_organizations, 'organization');
         }
 
         $this->procChkOrganization($M_Org); // 学習目標の洗い出し
         $this->objAry = array_unique($this->objAry);
-        $this->procOrganization(selectSingleNode($M_organizations, 'organization'), $schemaversion); // 複数の構造を持つ場合の処理がぬけている
+        $this->procOrganization(selectSingleDOMNode($M_organizations, 'organization'), $schemaversion); // 複数の構造を持つ場合の処理がぬけている
 
         // 学習目標
         if ($this->isSCORM) {
@@ -205,11 +205,11 @@ class elecoa_manifest_converter
     }
 
     function procChkOrganization($M_o) {
-        foreach (selectNodes($M_o, 'item') as $n) {
+        foreach (selectDOMNodes($M_o, 'item') as $n) {
             $this->ChkItemNode($n);
         }
         if ($this->isSCORM) {
-            $this->ChkSeqNode(selectSingleNode($M_o, 'imsss:sequencing'));
+            $this->ChkSeqNode(selectSingleDOMNode($M_o, 'imsss:sequencing'));
         }
     }
 
@@ -219,19 +219,19 @@ class elecoa_manifest_converter
 
     // Block Node の生成
     function ChkBlockNode($M_i) {
-        foreach (selectNodes($M_i, 'item') as $i) {
+        foreach (selectDOMNodes($M_i, 'item') as $i) {
             $this->ChkItemNode($i);
         }
 
         if ($this->isSCORM) {
-            $this->ChkSeqNode(selectSingleNode($M_i, 'imsss:sequencing'));
+            $this->ChkSeqNode(selectSingleDOMNode($M_i, 'imsss:sequencing'));
         }
     }
 
     // Leaf Node の生成
     function ChkLeafNode($M_i) {
         if ($this->isSCORM) {
-            $this->ChkSeqNode(selectSingleNode($M_i, 'imsss:sequencing'));
+            $this->ChkSeqNode(selectSingleDOMNode($M_i, 'imsss:sequencing'));
         }
     }
 
@@ -252,15 +252,15 @@ class elecoa_manifest_converter
     }
 
     function ChkSeqObj($M_n) {
-        if (!is_null($M_po = selectSingleNode($M_n, 'imsss:primaryObjective'))) {
-            foreach (selectNodes($M_po, 'imsss:mapInfo') as $n) {
+        if (!is_null($M_po = selectSingleDOMNode($M_n, 'imsss:primaryObjective'))) {
+            foreach (selectDOMNodes($M_po, 'imsss:mapInfo') as $n) {
                 $tmpStr = $n -> getAttribute('targetObjectiveID');
                 $this->objAry[] = $tmpStr;
             }
         }
         // ローカル
-        foreach (selectNodes($M_n, 'imsss:objective') as $n) {
-            foreach (selectNodes($n, 'imsss:mapInfo') as $nn) {
+        foreach (selectDOMNodes($M_n, 'imsss:objective') as $n) {
+            foreach (selectDOMNodes($n, 'imsss:mapInfo') as $nn) {
                 $tmpStr = $nn -> getAttribute('targetObjectiveID');
                 $this->objAry[] = $tmpStr;
             }
@@ -277,7 +277,7 @@ class elecoa_manifest_converter
         $E_o -> setAttribute('oGS', $M_o -> getAttribute('adlseq:objectivesGlobalToSystem') === 'false' ? 'false' : 'true');        // oGS
 
         $E_t = $this->E_doc -> createElement('title');        // title
-        $E_t -> nodeValue = selectSingleNode($M_o, 'title') -> nodeValue;
+        $E_t -> nodeValue = selectSingleDOMNode($M_o, 'title') -> nodeValue;
         $E_o -> appendChild($E_t);
 
         $E_ID = $this->E_doc -> createElement('itemData');
@@ -286,11 +286,11 @@ class elecoa_manifest_converter
             $E_ID -> setAttribute('xmlns:imsss', "http://www.imsglobal.org/xsd/imsss");
             $E_ID -> setAttribute('xmlns:adlseq', "http://www.adlnet.org/xsd/adlseq_v1p3");
             $E_ID -> setAttribute('xmlns:adlnav', "http://www.adlnet.org/xsd/adlnav_v1p3");
-            $E_ID -> appendChild($this->makeSeqNode(selectSingleNode($M_o, 'imsss:sequencing'), $id, $schemaversion));
+            $E_ID -> appendChild($this->makeSeqNode(selectSingleDOMNode($M_o, 'imsss:sequencing'), $id, $schemaversion));
         }
         $E_o -> appendChild($E_ID);
 
-        foreach (selectNodes($M_o, 'item') as $n) {
+        foreach (selectDOMNodes($M_o, 'item') as $n) {
             $E_o -> appendChild($this->makeItemNode($n, $schemaversion));
         }
 
@@ -320,7 +320,7 @@ class elecoa_manifest_converter
         $E_i -> setAttribute('coType', $this->CO[1]);
 
         $E_t = $this->E_doc -> createElement('title');
-        $E_t -> nodeValue = selectSingleNode($M_i, 'title') -> nodeValue;
+        $E_t -> nodeValue = selectSingleDOMNode($M_i, 'title') -> nodeValue;
         $E_i -> appendChild($E_t);
 
         $E_ID = $this->E_doc -> createElement('itemData');
@@ -330,14 +330,14 @@ class elecoa_manifest_converter
             $E_ID -> setAttribute('xmlns:adlcp', "http://www.adlnet.org/xsd/adlcp_v1p3");// itemの下のみ
             $E_ID -> setAttribute('xmlns:adlseq', "http://www.adlnet.org/xsd/adlseq_v1p3");
 
-            $M_ct = selectSingleNode($M_i, 'adlcp:completionThreshold');
+            $M_ct = selectSingleDOMNode($M_i, 'adlcp:completionThreshold');
             if (!is_null($M_ct)) {
                 $E_ct = $this->E_doc -> createElement('adlcp:completionThreshold');
                 $E_ct -> nodeValue = $M_ct -> nodeValue;
                 $E_ID -> appendChild($E_ct);
             }
 
-            $E_ID -> appendChild($this->makeSeqNode(selectSingleNode($M_i, 'imsss:sequencing'), $id, $schemaversion));
+            $E_ID -> appendChild($this->makeSeqNode(selectSingleDOMNode($M_i, 'imsss:sequencing'), $id, $schemaversion));
             
             $this->handle_maxtimeallowed($E_ID, $M_i);
             $this->handle_masteryscore($E_ID, $M_i);
@@ -345,7 +345,7 @@ class elecoa_manifest_converter
         $E_i -> appendChild($E_ID);
 
         // 子 Node の生成
-        foreach (selectNodes($M_i, 'item') as $i) {
+        foreach (selectDOMNodes($M_i, 'item') as $i) {
             $E_i -> appendChild($this->makeItemNode($i, $schemaversion));
         }
 
@@ -367,7 +367,7 @@ class elecoa_manifest_converter
         $E_i -> setAttribute('coType', $this->typeAry[$idref] === 'sco' ? $this->CO[2] : $this->CO[3]);
 
         $E_t = $this->E_doc -> createElement('title');
-        $E_t -> nodeValue = selectSingleNode($M_i, 'title') -> nodeValue;
+        $E_t -> nodeValue = selectSingleDOMNode($M_i, 'title') -> nodeValue;
         $E_i -> appendChild($E_t);
 
         $E_ID = $this->E_doc -> createElement('itemData');
@@ -380,7 +380,7 @@ class elecoa_manifest_converter
 
             $this->handle_dataFromLMS($E_ID, $M_i);
 
-            $M_ct = selectSingleNode($M_i, 'adlcp:completionThreshold');
+            $M_ct = selectSingleDOMNode($M_i, 'adlcp:completionThreshold');
             if (!is_null($M_ct)) {
                 $E_ct = $this->E_doc -> createElement('adlcp:completionThreshold');
                 $E_ct -> nodeValue = $M_ct -> nodeValue;
@@ -389,7 +389,7 @@ class elecoa_manifest_converter
 
             $this->handle_timeLimitAction($E_ID, $M_i);
 
-            $E_ID -> appendChild($this->makeSeqNode(selectSingleNode($M_i, 'imsss:sequencing'), $id, $schemaversion));
+            $E_ID -> appendChild($this->makeSeqNode(selectSingleDOMNode($M_i, 'imsss:sequencing'), $id, $schemaversion));
             
             $this->handle_presentation($E_ID, $M_i);
             $this->handle_maxtimeallowed($E_ID, $M_i);
@@ -502,7 +502,7 @@ class elecoa_manifest_converter
     }
 
     function setSeqControl(&$E_s, $M_n) {
-        $E_n = selectSingleNode($E_s, 'imsss:controlMode');
+        $E_n = selectSingleDOMNode($E_s, 'imsss:controlMode');
         if ($M_n -> getAttribute('choice') === 'false') {
             $E_n -> setAttribute('choice', 'false');
         }
@@ -529,9 +529,9 @@ class elecoa_manifest_converter
         $E_R = $this->E_doc -> createElement('imsss:sequencingRules');
 
         for($i=0;$i<$len;$i++){
-            foreach (selectNodes($M_n, $CD[$i]) as $n) {
+            foreach (selectDOMNodes($M_n, $CD[$i]) as $n) {
                 $E_RC = $this->E_doc -> createElement($CD[$i]);
-                $M_RR = selectSingleNode($n, 'imsss:ruleConditions');// 空はない
+                $M_RR = selectSingleDOMNode($n, 'imsss:ruleConditions');// 空はない
                 $E_RCS = $this->E_doc -> createElement('imsss:ruleConditions');
                 if ($M_RR -> getAttribute('conditionCombination') === 'any') {
                     $E_RCS -> setAttribute('conditionCombination', 'any');
@@ -539,7 +539,7 @@ class elecoa_manifest_converter
                     $E_RCS -> setAttribute('conditionCombination', 'all');
                 }
 
-                foreach (selectNodes($M_RR, 'imsss:ruleCondition') as $nn) {
+                foreach (selectDOMNodes($M_RR, 'imsss:ruleCondition') as $nn) {
                     $E_RR = $this->E_doc -> createElement('imsss:ruleCondition');
                     $tmpStr = $nn -> getAttribute('referencedObjective');
                     if($tmpStr == '' ||is_null($tmpStr)){
@@ -561,7 +561,7 @@ class elecoa_manifest_converter
                     $E_RCS->appendChild($E_RR);
                 }
 
-                $M_RA = selectSingleNode($n, 'imsss:ruleAction');// 空はない
+                $M_RA = selectSingleDOMNode($n, 'imsss:ruleAction');// 空はない
                 $tmpStr = $M_RA->getAttribute('action');
                 $E_RA = $this->E_doc -> createElement('imsss:ruleAction');
                 $E_RA->setAttribute('action', $tmpStr);
@@ -584,7 +584,7 @@ class elecoa_manifest_converter
     }
 
     function setSeqRoll(&$E_s, $M_n) {
-        $E_R = selectSingleNode($E_s, 'imsss:rollupRules');
+        $E_R = selectSingleDOMNode($E_s, 'imsss:rollupRules');
 
         $tmpStr = $M_n -> getAttribute('rollupObjectiveSatisfied');
         if($tmpStr == 'false'){
@@ -605,7 +605,7 @@ class elecoa_manifest_converter
             $E_R->setAttribute('objectiveMeasureWeight', $tmpStr);
         }
 
-        foreach (selectNodes($M_n, 'imsss:rollupRule') as $n) {
+        foreach (selectDOMNodes($M_n, 'imsss:rollupRule') as $n) {
             $E_RR = $this->E_doc -> createElement('imsss:rollupRule');
             $tmpStr = $n -> getAttribute('childActivitySet');
             if($tmpStr == ''){
@@ -628,7 +628,7 @@ class elecoa_manifest_converter
                 $E_RR -> setAttribute('minimumPercent', $tmpStr);
             }
 
-            $M_cs = selectSingleNode($n, 'imsss:rollupConditions');
+            $M_cs = selectSingleDOMNode($n, 'imsss:rollupConditions');
             $E_cs = $this->E_doc -> createElement('imsss:rollupConditions');
             $tmpStr = $M_cs -> getAttribute('conditionCombination');
             if($tmpStr == 'all'){
@@ -637,7 +637,7 @@ class elecoa_manifest_converter
                 $E_cs -> setAttribute('conditionCombination', 'any');
             }
 
-            foreach (selectNodes($M_cs, 'imsss:rollupCondition') as $nn) {
+            foreach (selectDOMNodes($M_cs, 'imsss:rollupCondition') as $nn) {
                 $E_c = $this->E_doc -> createElement('imsss:rollupCondition');
                 $tmpStr = $nn -> getAttribute('operator');
                 if($tmpStr == 'not'){
@@ -651,7 +651,7 @@ class elecoa_manifest_converter
             }
             $E_RR -> appendChild($E_cs);
 
-            $M_a = selectSingleNode($n, 'imsss:rollupAction');
+            $M_a = selectSingleDOMNode($n, 'imsss:rollupAction');
             $E_a = $this->E_doc -> createElement('imsss:rollupAction');
             $tmpStr = $M_a -> getAttribute('action');
             $E_a -> setAttribute('action', $tmpStr);
@@ -663,10 +663,10 @@ class elecoa_manifest_converter
     }
 
     function setSeqObj(&$E_s, $M_n,$tmpID) {
-        $M_po = selectSingleNode($M_n, 'imsss:primaryObjective');
-        $E_R = selectSingleNode($E_s, 'imsss:objectives');
+        $M_po = selectSingleDOMNode($M_n, 'imsss:primaryObjective');
+        $E_R = selectSingleDOMNode($E_s, 'imsss:objectives');
         if (!is_null($M_po)) {
-            $E_po = selectSingleNode($E_R, 'imsss:primaryObjective');
+            $E_po = selectSingleDOMNode($E_R, 'imsss:primaryObjective');
 
             $tmpStr = $M_po -> getAttribute('objectiveID');
             if ($tmpStr !== '') {
@@ -678,11 +678,11 @@ class elecoa_manifest_converter
                 $E_po -> setAttribute('satisfiedByMeasure', 'true');
             }
 
-            if (!is_null($M_mn = selectSingleNode($M_po, 'imsss:minNormalizedMeasure'))) {
-                selectSingleNode($E_po, 'imsss:minNormalizedMeasure') -> nodeValue = $M_mn -> nodeValue;
+            if (!is_null($M_mn = selectSingleDOMNode($M_po, 'imsss:minNormalizedMeasure'))) {
+                selectSingleDOMNode($E_po, 'imsss:minNormalizedMeasure') -> nodeValue = $M_mn -> nodeValue;
             }
 
-            foreach (selectNodes($M_po, 'imsss:mapInfo') as $n) {
+            foreach (selectDOMNodes($M_po, 'imsss:mapInfo') as $n) {
                 $E_mi = $this->E_doc -> createElement('imsss:mapInfo');
                 $tmpStr = $n -> getAttribute('targetObjectiveID');
                 $E_mi -> setAttribute('targetObjectiveID', $tmpStr);
@@ -715,7 +715,7 @@ class elecoa_manifest_converter
             }
         }
 
-        foreach (selectNodes($M_n, 'imsss:objective') as $n) {
+        foreach (selectDOMNodes($M_n, 'imsss:objective') as $n) {
             $E_o = $this->E_doc -> createElement('imsss:objective');
             $tmpStr = $n -> getAttribute('objectiveID');
             $E_o -> setAttribute('objectiveID', $tmpStr);
@@ -730,13 +730,13 @@ class elecoa_manifest_converter
             $E_mn = $this->E_doc -> createElement('imsss:minNormalizedMeasure');
             $E_mn -> nodeValue = '1.0';
 
-            $M_mn = selectSingleNode($n, 'imsss:minNormalizedMeasure');
+            $M_mn = selectSingleDOMNode($n, 'imsss:minNormalizedMeasure');
             if (!is_null($M_mn)){
                 $E_mn -> nodeValue = $M_mn -> nodeValue;
             }
             $E_o -> appendChild($E_mn);
 
-            foreach (selectNodes($n, 'imsss:mapInfo') as $nn) {
+            foreach (selectDOMNodes($n, 'imsss:mapInfo') as $nn) {
                 $E_mi = $this->E_doc -> createElement('imsss:mapInfo');
                 $tmpStr = $nn -> getAttribute('targetObjectiveID');
                 $E_mi -> setAttribute('targetObjectiveID', $tmpStr);
@@ -773,7 +773,7 @@ class elecoa_manifest_converter
     }
 
     function setSeqDC(&$E_s, $M_n) {
-        $E_n = selectSingleNode($E_s, 'imsss:deliveryControls');
+        $E_n = selectSingleDOMNode($E_s, 'imsss:deliveryControls');
         if ($M_n -> getAttribute('tracked') === 'false'){
             $E_n -> setAttribute('tracked', 'false');
         }
@@ -786,7 +786,7 @@ class elecoa_manifest_converter
     }
 
     function setSeqAC(&$E_s, $M_n) {
-        $E_n = selectSingleNode($E_s, 'adlseq:constrainedChoiceConsiderations');
+        $E_n = selectSingleDOMNode($E_s, 'adlseq:constrainedChoiceConsiderations');
         if ($M_n -> getAttribute('preventActivation') === 'true'){
             $E_n -> setAttribute('preventActivation', 'true');
         }
@@ -797,7 +797,7 @@ class elecoa_manifest_converter
     }
 
     function setSeqAR(&$E_s, $M_n) {
-        $E_n = selectSingleNode($E_s, 'adlseq:rollupConsiderations');
+        $E_n = selectSingleDOMNode($E_s, 'adlseq:rollupConsiderations');
         if ($M_n -> getAttribute('requiredForSatisfied') !== ''){
             $E_n -> setAttribute('requiredForSatisfied', $M_n -> getAttribute('requiredForSatisfied'));
         }
@@ -822,7 +822,7 @@ class elecoa_manifest_converter
      * @param DOMElement $M_i <item>エレメント
      */
     protected function handle_masteryscore(&$E_ID, $M_i) {
-        $M_masteryscore = selectSingleNode($M_i, 'adlcp:masteryscore');
+        $M_masteryscore = selectSingleDOMNode($M_i, 'adlcp:masteryscore');
         if (is_null($M_masteryscore)) {
             return;
         }
@@ -836,33 +836,33 @@ class elecoa_manifest_converter
             return;
         }
         
-        $E_sequencing = selectSingleNode($E_ID, 'imsss:sequencing');
+        $E_sequencing = selectSingleDOMNode($E_ID, 'imsss:sequencing');
         if (is_null($E_sequencing)) {
             $E_sequencing = $this->E_doc->createElement('imsss:sequencing');
             $E_ID->appendChild($E_sequencing);
-            $E_sequencing = selectSingleNode($E_ID, 'imsss:sequencing');
+            $E_sequencing = selectSingleDOMNode($E_ID, 'imsss:sequencing');
         }
         
-        $E_objectives = selectSingleNode($E_sequencing, 'imsss:objectives');
+        $E_objectives = selectSingleDOMNode($E_sequencing, 'imsss:objectives');
         if (is_null($E_objectives)) {
             $E_objectives = $this->E_doc->createElement('imsss:objectives');
             $E_sequencing->appendChild($E_objectives);
-            $E_objectives = selectSingleNode($E_sequencing, 'imsss:objectives');
+            $E_objectives = selectSingleDOMNode($E_sequencing, 'imsss:objectives');
         }
         
-        $E_primaryObjectives = selectSingleNode($E_objectives, 'imsss:primaryObjective');
+        $E_primaryObjectives = selectSingleDOMNode($E_objectives, 'imsss:primaryObjective');
         if (is_null($E_primaryObjectives)) {
             $E_primaryObjectives = $this->E_doc->createElement('imsss:primaryObjective');
             $E_objectives->appendChild($E_primaryObjectives);
-            $E_primaryObjectives = selectSingleNode($E_objectives, 'imsss:primaryObjective');
+            $E_primaryObjectives = selectSingleDOMNode($E_objectives, 'imsss:primaryObjective');
         }
         $E_primaryObjectives->setAttribute('satisfiedByMeasure', 'true');
         
-        $E_minNormalizedMeasure = selectSingleNode($E_primaryObjectives, 'imsss:minNormalizedMeasure');
+        $E_minNormalizedMeasure = selectSingleDOMNode($E_primaryObjectives, 'imsss:minNormalizedMeasure');
         if (is_null($E_minNormalizedMeasure)) {
             $E_minNormalizedMeasure = $this->E_doc->createElement('imsss:minNormalizedMeasure');
             $E_primaryObjectives->appendChild($E_minNormalizedMeasure);
-            $E_minNormalizedMeasure = selectSingleNode($E_primaryObjectives, 'imsss:minNormalizedMeasure');
+            $E_minNormalizedMeasure = selectSingleDOMNode($E_primaryObjectives, 'imsss:minNormalizedMeasure');
         }
         $E_minNormalizedMeasure->nodeValue = round($M_masteryscore->nodeValue / 100.0, 2);
     }
@@ -874,7 +874,7 @@ class elecoa_manifest_converter
      * @param DOMElement $M_i <item>エレメント
      */
     protected function handle_maxtimeallowed(&$E_ID, $M_i) {
-        $M_maxtimeallowed = selectSingleNode($M_i, 'adlcp:maxtimeallowed');
+        $M_maxtimeallowed = selectSingleDOMNode($M_i, 'adlcp:maxtimeallowed');
         if (is_null($M_maxtimeallowed)) {
             return;
         }
@@ -886,18 +886,18 @@ class elecoa_manifest_converter
             return;
         }
         
-        $E_sequencing = selectSingleNode($E_ID, 'imsss:sequencing');
+        $E_sequencing = selectSingleDOMNode($E_ID, 'imsss:sequencing');
         if (is_null($E_sequencing)) {
             $E_sequencing = $this->E_doc->createElement('imsss:sequencing');
             $E_ID->appendChild($E_sequencing);
-            $E_sequencing = selectSingleNode($E_ID, 'imsss:sequencing');
+            $E_sequencing = selectSingleDOMNode($E_ID, 'imsss:sequencing');
         }
         
-        $E_limitConditions = selectSingleNode($E_sequencing, 'imsss:limitConditions');
+        $E_limitConditions = selectSingleDOMNode($E_sequencing, 'imsss:limitConditions');
         if (is_null($E_limitConditions)) {
             $E_limitConditions = $this->E_doc->createElement('imsss:limitConditions');
             $E_sequencing->appendChild($E_limitConditions);
-            $E_limitConditions = selectSingleNode($E_sequencing, 'imsss:limitConditions');
+            $E_limitConditions = selectSingleDOMNode($E_sequencing, 'imsss:limitConditions');
         }
         $E_limitConditions->setAttribute('attemptAbsoluteDurationLimit', $duration);
     }
@@ -909,9 +909,9 @@ class elecoa_manifest_converter
      * @param DOMElement $M_i <item>エレメント
      */
     protected function handle_dataFromLMS(&$E_ID, $M_i) {
-        $M_dataFromLMS = selectSingleNode($M_i, 'adlcp:dataFromLMS');
+        $M_dataFromLMS = selectSingleDOMNode($M_i, 'adlcp:dataFromLMS');
         if (is_null($M_dataFromLMS)) {
-            $M_dataFromLMS = selectSingleNode($M_i, 'adlcp:datafromlms');
+            $M_dataFromLMS = selectSingleDOMNode($M_i, 'adlcp:datafromlms');
             if (is_null($M_dataFromLMS)) {
                 return;
             }
@@ -930,7 +930,7 @@ class elecoa_manifest_converter
      * @param DOMElement $M_i <item>エレメント
      */
     protected function handle_timeLimitAction(&$E_ID, $M_i) {
-        $M_timeLimitAction = selectSingleNode($M_i, 'adlcp:timeLimitAction');
+        $M_timeLimitAction = selectSingleDOMNode($M_i, 'adlcp:timeLimitAction');
         if (is_null($M_timeLimitAction)) {
             return;
         }
@@ -948,12 +948,12 @@ class elecoa_manifest_converter
      * @param DOMElement $M_i <item>エレメント
      */
     protected function handle_presentation(&$E_ID, $M_i) {
-        $M_presentation = selectSingleNode($M_i, 'adlnav:presentation');
+        $M_presentation = selectSingleDOMNode($M_i, 'adlnav:presentation');
         if (is_null($M_presentation)) {
             return;
         }
         
-        $M_navigationInterface = selectSingleNode($M_presentation, 'adlnav:navigationInterface');
+        $M_navigationInterface = selectSingleDOMNode($M_presentation, 'adlnav:navigationInterface');
         if (is_null($M_navigationInterface)) {
             return;
         }
@@ -961,7 +961,7 @@ class elecoa_manifest_converter
         $E_presentation = $this->E_doc->createElement('adlnav:presentation');
         $E_navigationInterface = $this->E_doc->createElement('adlnav:navigationInterface');
         
-        foreach (selectNodes($M_navigationInterface, 'adlnav:hideLMSUI') as $M_hideLMSUI) {
+        foreach (selectDOMNodes($M_navigationInterface, 'adlnav:hideLMSUI') as $M_hideLMSUI) {
             $E_hideLMSUI = $this->E_doc->createElement('adlnav:hideLMSUI');
             $E_hideLMSUI->nodeValue = $M_hideLMSUI->nodeValue;
             $E_navigationInterface->appendChild($E_hideLMSUI);

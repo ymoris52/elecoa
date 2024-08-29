@@ -161,9 +161,9 @@ function elecoa_parse($elecoa, $full) {
         $xmlstring = $manifest->get_content();
         $doc = new DOMDocument();
         if ($doc->loadXML($xmlstring)) {
-            $root = selectSingleNode($doc, 'manifest');
+            $root = selectSingleDOMNode($doc, 'manifest');
             if ($root) {
-                $item = selectSingleNode($root, 'item');
+                $item = selectSingleDOMNode($root, 'item');
                 if ($item) {
                     elecoa_get_items($elecoa->id, null, $item);
                 }
@@ -185,12 +185,12 @@ function elecoa_get_items($elecoaid, $parentid, $node)
     $record->elecoaid = $elecoaid;
     $record->parentid = $parentid;
     $record->identifier = (string)$node->getAttribute('identifier');
-    $record->title = (string)selectSingleNode($node, 'title')->nodeValue;
+    $record->title = (string)selectSingleDOMNode($node, 'title')->nodeValue;
     $record->cotype = (string)$node->getAttribute('coType');
 
     $id = $DB->insert_record(ELECOA_ITEMS_TABLE, $record);
     if ($id) {
-        foreach (selectNodes($node, 'item') as $n) {
+        foreach (selectDOMNodes($node, 'item') as $n) {
             elecoa_get_items( $elecoaid, $id, $n );
         }
     }

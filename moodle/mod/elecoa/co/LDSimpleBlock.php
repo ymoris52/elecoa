@@ -12,6 +12,7 @@ class LDSimpleBlock extends SimpleBlock {
         $this->cid = $ctx->getCid();
         $this->available = TRUE;
         $this->addData($this->dataNode);
+        $this->addDOMData($node);
         $this->addCommands();
     }
 
@@ -20,6 +21,9 @@ class LDSimpleBlock extends SimpleBlock {
     }
 
     function addCommands() {
+    }
+
+    function addDOMData($node) {
     }
 
     function addData($data) {

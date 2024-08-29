@@ -76,8 +76,8 @@ class Platform {
     }
 
     public function getParticipantObjectives($cid, $uid, $objectiveId) {
-        $objective = $this->searchObjective($objectiveId);
-        $objectiveKeyValue = array('owner' => TRUE, 'userId' => $uid, 'objectiveId' => $objectiveId, 'objectiveValue' => $objective->getValue());
+        //$objective = $this->searchObjective($objectiveId);
+        //$objectiveKeyValue = array('owner' => TRUE, 'userId' => $uid, 'objectiveId' => $objectiveId, 'objectiveValue' => $objective->getValue());
         global $DB, $CFG;
         $elecoa = $DB->get_record_select('elecoa', 'id = ?', array($cid));
         $context = $DB->get_record_select('context', 'instanceid = ? and contextlevel = 50', array($elecoa->course));
@@ -153,15 +153,15 @@ class Platform {
         } else {
             $sgo = FALSE;
         }
-        $objectives = selectSingleNode($doc->documentElement, 'objectives');
+        $objectives = selectSingleDOMNode($doc->documentElement, 'objectives');
         if (!is_null($objectives)) {
-            foreach (selectNodes($objectives, 'objective') as $objective) {
+            foreach (selectDOMNodes($objectives, 'objective') as $objective) {
                 $objective_cotype = $objective->getAttribute('coType');
                 $objective_id = $objective->getAttribute('id');
                 $objArray[$objective_id] = new $objective_cotype($ctx, $objective_id, $objective, FALSE, $sgo);
             }
         }
-        $item = selectSingleNode($doc->documentElement, 'item');
+        $item = selectSingleDOMNode($doc->documentElement, 'item');
         //$classname = $item->getAttribute('coType');
         $topid = $item->getAttribute('identifier');
         $lastNum = $blockidx;
@@ -177,7 +177,7 @@ class Platform {
         //}
         $makeTree = function ($node, $parent, $res, &$context, &$actArray, &$objArray) use (&$makeTree, &$searchActivity, $topid) {
             $appendedTopIndex = -1;
-            foreach (selectNodes($node, 'item') as $item) {
+            foreach (selectDOMNodes($node, 'item') as $item) {
                 $classname = $item->getAttribute('coType');
                 $id = $item->getAttribute('identifier');
                 //$item->setAttribute('identifier', $topid . '-' . $id);

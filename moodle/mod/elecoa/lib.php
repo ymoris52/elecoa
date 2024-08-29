@@ -617,6 +617,7 @@ function elecoa_supports($feature) {
         case FEATURE_GRADE_OUTCOMES:          return FALSE;
         case FEATURE_BACKUP_MOODLE2:          return TRUE;
         case FEATURE_SHOW_DESCRIPTION:        return TRUE;
+        case FEATURE_MOD_PURPOSE:             return MOD_PURPOSE_CONTENT;
 
         default: return null;
     }

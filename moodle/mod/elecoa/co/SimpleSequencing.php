@@ -204,18 +204,18 @@ class SimpleSequencing {
         }
         // デフォルトルールの追加
         if (!$objFlg) {
-            //$tmpRuleNS = array();
-            //$tmpRuleNS['childActivitySet'] = 'all';
-            //$tmpRuleNS['minimumCount'] = '0';
-            //$tmpRuleNS['minimumPercent'] = '0.0';
-            //$tmpRuleNS['conditionCombination'] = 'any';
-            //$tmpRuleNS['action'] = 'notSatisfied';
+            $tmpRuleNS = array();
+            $tmpRuleNS['childActivitySet'] = 'all';
+            $tmpRuleNS['minimumCount'] = '0';
+            $tmpRuleNS['minimumPercent'] = '0.0';
+            $tmpRuleNS['conditionCombination'] = 'any';
+            $tmpRuleNS['action'] = 'notSatisfied';
 
-            //$tmpCondNS = array();
-            //$tmpCondNS['operator'] = 'noOp';
-            //$tmpCondNS['condition'] = 'objectiveStatusKnown';
-            //$tmpRuleNS['rollupConditions'][] = $tmpCondNS;
-            //$this->rollupRules['rollupRule'][] = $tmpRuleNS;
+            $tmpCondNS = array();
+            $tmpCondNS['operator'] = 'noOp';
+            $tmpCondNS['condition'] = 'objectiveStatusKnown';
+            $tmpRuleNS['rollupConditions'][] = $tmpCondNS;
+            $this->rollupRules['rollupRule'][] = $tmpRuleNS;
 
             $tmpRuleS = array();
             $tmpRuleS['childActivitySet'] = 'all';
@@ -232,18 +232,18 @@ class SimpleSequencing {
         }
 
         if (!$actFlg) {
-            //$tmpRuleNS = array();
-            //$tmpRuleNS['childActivitySet'] = 'all';
-            //$tmpRuleNS['minimumCount'] = '0';
-            //$tmpRuleNS['minimumPercent'] = '0.0';
-            //$tmpRuleNS['conditionCombination'] = 'any';
-            //$tmpRuleNS['action'] = 'incomplete';
+            $tmpRuleNS = array();
+            $tmpRuleNS['childActivitySet'] = 'all';
+            $tmpRuleNS['minimumCount'] = '0';
+            $tmpRuleNS['minimumPercent'] = '0.0';
+            $tmpRuleNS['conditionCombination'] = 'any';
+            $tmpRuleNS['action'] = 'incomplete';
 
-            //$tmpCondNS = array();
-            //$tmpCondNS['operator'] = 'noOp';
-            //$tmpCondNS['condition'] = 'activityProgressKnown';
-            //$tmpRuleNS['rollupConditions'][] = $tmpCondNS;
-            //$this->rollupRules['rollupRule'][] = $tmpRuleNS;
+            $tmpCondNS = array();
+            $tmpCondNS['operator'] = 'noOp';
+            $tmpCondNS['condition'] = 'activityProgressKnown';
+            $tmpRuleNS['rollupConditions'][] = $tmpCondNS;
+            $this->rollupRules['rollupRule'][] = $tmpRuleNS;
 
             $tmpRuleS = array();
             $tmpRuleS['childActivitySet'] = 'all';
@@ -563,6 +563,7 @@ class SimpleSequencing {
                 $gObjID = $this->searchObjMap($mapAry, 'readNormalizedMeasure');
                 if ($gObjID != '') {
                     //$sScore = $platform->getObjective($gObjID)->getScaledScore();
+                    $this->log('getValue:' . $this->ssID . ', ' . $gObjID, FALSE, TRUE);
                     $sScore = $platform->getObjective($gObjID)->getValue()['ScaledScore'];
                     if ($sScore !== '') {
                         $dScore = floatval($sScore);
@@ -578,6 +579,7 @@ class SimpleSequencing {
                 $gObjID = $this->searchObjMap($mapAry, 'readSatisfiedStatus');
                 if ($gObjID != '') {
                     //$retStr = $platform->getObjective($gObjID)->getSuccessStatus();
+                    $this->log('getValue:' . $this->ssID . ', ' . $gObjID, FALSE, TRUE);
                     $value = $platform->getObjective($gObjID)->getValue();
                     if (isset($value['SuccessStatus'])) {
                         $retStr = $value['SuccessStatus'];
@@ -608,6 +610,7 @@ class SimpleSequencing {
             if ($this->localObjective[$num]['satisfiedByMeasure']) {
                 $gObjID = $this->searchObjMap($mapAry, 'readNormalizedMeasure');
                 if ($gObjID != '') {
+                    $this->log('getValue:' . $this->ssID . ', ' . $gObjID, FALSE, TRUE);
                     $sScore = $platform->getObjective($gObjID)->getValue()['ScaledScore'];
                     if ($sScore !== '') {
                         $dScore = floatval($sScore);
@@ -623,6 +626,7 @@ class SimpleSequencing {
                 if ($retStr == 'unknown') {
                     $gObjID = $this->searchObjMap($mapAry, 'readSatisfiedStatus');
                     if ($gObjID != '') {
+                        $this->log('getValue:' . $this->ssID . ', ' . $gObjID, FALSE, TRUE);
                         $retStr = $platform->getObjective($gObjID)->getValue()['SuccessStatus'];
                     }
                 }
@@ -662,6 +666,7 @@ class SimpleSequencing {
                 $mapAry = $this->primaryObjective['mapInfo'];
                 $gObjID = $this->searchObjMap($mapAry, 'readNormalizedMeasure');
                 if ($gObjID != '') {
+                    $this->log('getValue:' . $this->ssID . ', ' . $gObjID, FALSE, TRUE);
                     $sScore = $platform->getObjective($gObjID)->getValue()['ScaledScore'];
                     if ($sScore !== '') {
                         $dScore = floatval($sScore);
@@ -680,6 +685,7 @@ class SimpleSequencing {
             $mapAry = $this->primaryObjective['mapInfo'];
             $gObjID = $this->searchObjMap($mapAry, 'readSatisfiedStatus');
             if ($gObjID != '') {
+                $this->log('getValue:' . $this->ssID . ', ' . $gObjID, FALSE, TRUE);
                 $value = $platform->getObjective($gObjID)->getValue();
                 if (isset($value['SuccessStatus'])) {
                     $retStr = $value['SuccessStatus'];
@@ -696,6 +702,7 @@ class SimpleSequencing {
     }
 
     public function setSuccessStatus($str, $isReal) {
+        $this->log('setSuccessStatus: ' . $this->ssID . ':' . ($this->ObjectiveProgressStatus ? 'true':'false') . ', ' . ($this->ObjectiveSatisfiedStatus ? 'true':'false'), false, true);
         $this->trace();
         $retStr = $str;
 
@@ -710,14 +717,16 @@ class SimpleSequencing {
             $this->ObjectiveSatisfiedStatus = FALSE;
         }
 
-        if ($isReal) {
+        if ($isReal and $retStr !== 'unknown') {
             $platform = Platform::getInstance();
             $mapAry = $this->primaryObjective['mapInfo'];
             $tmpAry = $this->searchObjWriteMap($mapAry, 'writeSatisfiedStatus');
             foreach ($tmpAry as $oID) {
+                $this->log('setValue:' . $this->ssID . ', ' . $oID, FALSE, TRUE);
                 $retStr = $platform->getObjective($oID)->setValue(array('SuccessStatus' => $retStr));
             }
         }
+        $this->log('setSuccessStatus: ' . $this->ssID . ':' . ($this->ObjectiveProgressStatus ? 'true':'false') . ', ' . ($this->ObjectiveSatisfiedStatus ? 'true':'false'), false, true);
     }
 
     private function setLocalSuccessStatus($num, $str, $isReal) {
@@ -737,6 +746,7 @@ class SimpleSequencing {
             $mapAry = $this->localObjective[$num]['mapInfo'];
             $tmpAry = $this->searchObjWriteMap($mapAry, 'writeSatisfiedStatus');
             foreach ($tmpAry as $oID) {
+                $this->log('setValue:' . $this->ssID . ', ' . $oID, FALSE, TRUE);
                 $retStr = $platform->getObjective($oID)->setValue(array('SuccessStatus' => $str));
             }
         }
@@ -753,6 +763,7 @@ class SimpleSequencing {
             $gObjID = $this->searchObjMap($mapAry, 'readNormalizedMeasure');
             if ($gObjID != '') {
                 $platform = Platform::getInstance();
+                $this->log('getValue:' . $this->ssID . ', ' . $gObjID, FALSE, TRUE);
                 $value = $platform->getObjective($gObjID)->getValue();
                 if (isset($value['ScaledScore'])) {
                     $retStr = $value['ScaledScore'];
@@ -769,6 +780,7 @@ class SimpleSequencing {
             $mapAry = $this->localObjective[$num]['mapInfo'];
             $gObjID = $this->searchObjMap($mapAry, 'readNormalizedMeasure');
             if ($gObjID != '') {
+                $this->log('getValue:' . $this->ssID . ', ' . $gObjID, FALSE, TRUE);
                 $retStr = $platform->getObjective($gObjID)->getValue()['ScaledScore'];
             }
         }
@@ -798,6 +810,7 @@ $this->trace('  return empty.');
             $mapAry = $this->primaryObjective['mapInfo'];
             $gObjID = $this->searchObjMap($mapAry, 'readNormalizedMeasure');
             if ($gObjID != '') {
+                $this->log('getValue:' . $this->ssID . ', ' . $gObjID, FALSE, TRUE);
                 $value = $platform->getObjective($gObjID)->getValue();
                 if (isset($value['ScaledScore'])) {
                     $retStr = $value['ScaledScore'];
@@ -812,31 +825,55 @@ $this->trace('  return=' . $retStr);
         $this->trace();
         if ($str === '') {
             $this->ObjectiveMeasureStatus = FALSE;
-            $this->ObjectiveNormalizedMeasure = 0;
+            // FIX: OB-03b
+            //$this->ObjectiveNormalizedMeasure = 0;
+            $this->ObjectiveNormalizedMeasure = '';
         } else {
             $this->ObjectiveMeasureStatus = TRUE;
             $this->ObjectiveNormalizedMeasure = $str;
 
-            if ($isReal) {
-                $platform = Platform::getInstance();
-                $mapAry = $this->primaryObjective['mapInfo'];
-                $tmpAry = $this->searchObjWriteMap($mapAry, 'writeNormalizedMeasure');
-                foreach ($tmpAry as $oID) {
-                    //$retStr = $platform->getObjective($oID)->setScaledScore($str);
-                    $retStr = $platform->getObjective($oID)->setValue(array('ScaledScore' => $str));
-                }
+            // FIX: OB-03b
+            //if ($isReal) {
+            //    $platform = Platform::getInstance();
+            //    $mapAry = $this->primaryObjective['mapInfo'];
+            //    $tmpAry = $this->searchObjWriteMap($mapAry, 'writeNormalizedMeasure');
+            //    foreach ($tmpAry as $oID) {
+            //        //$retStr = $platform->getObjective($oID)->setScaledScore($str);
+            //        $retStr = $platform->getObjective($oID)->setValue(array('ScaledScore' => $str));
+            //    }
+            //}
+            //// さらに判定
+            //if ($this->primaryObjective['satisfiedByMeasure']) {
+            //    $dScore = floatval($str);
+            //    $bBase = floatval($this->primaryObjective['minNormalizedMeasure']);
+            //    if ($dScore >= $bBase) {
+            //        $retStr = 'satisfied';
+            //    } else {
+            //        $retStr = 'not satisfied';
+            //    }
+            //    $this->setSuccessStatus($retStr, $isReal);
+            //}
+        }
+
+        //FIX: OB-03b
+        if ($isReal) {
+            $platform = Platform::getInstance();
+            $mapAry = $this->primaryObjective['mapInfo'];
+            $tmpAry = $this->searchObjWriteMap($mapAry, 'writeNormalizedMeasure');
+            foreach ($tmpAry as $oID) {
+                $this->log('setValue:' . $this->ssID . ', ' . $oID, FALSE, TRUE);
+                $retStr = $platform->getObjective($oID)->setValue(array('ScaledScore' => $str));
             }
-            // さらに判定
-            if ($this->primaryObjective['satisfiedByMeasure']) {
-                $dScore = floatval($str);
-                $bBase = floatval($this->primaryObjective['minNormalizedMeasure']);
-                if ($dScore >= $bBase) {
-                    $retStr = 'satisfied';
-                } else {
-                    $retStr = 'not satisfied';
-                }
-                $this->setSuccessStatus($retStr, $isReal);
+        }
+        if ($str !== '' and $this->primaryObjective['satisfiedByMeasure']) {
+            $dScore = floatval($str);
+            $bBase = floatval($this->primaryObjective['minNormalizedMeasure']);
+            if ($dScore >= $bBase) {
+                $retStr = 'satisfied';
+            } else {
+                $retStr = 'not satisfied';
             }
+            $this->setSuccessStatus($retStr, $isReal);
         }
     }
 
@@ -854,6 +891,7 @@ $this->trace('  return=' . $retStr);
                 $tmpAry = $this->searchObjWriteMap($mapAry, 'writeNormalizedMeasure');
                 foreach ($tmpAry as $oID) {
                     //$retStr = $platform->getObjective($oID)->setScaledScore($str);
+                    $this->log('setValue:' . $this->ssID . ', ' . $oID, FALSE, TRUE);
                     $retStr = $platform->getObjective($oID)->setValue(array('ScaledScore' => $str));
                 }
             }
@@ -923,6 +961,7 @@ $this->trace('  return=' . $retStr);
 
     public function setCompletionStatus($str) {
         $this->trace();
+        $this->log('setCompletionStatus: ' . $this->ssID . ':' . ($this->AttemptProgressStatus ? 'true':'false') . ', ' . ($this->AttemptCompletionStatus ? 'true':'false'), false, true);
         if ($str == 'completed') {
             $this->AttemptProgressStatus = TRUE;
             $this->AttemptCompletionStatus =  TRUE;
@@ -936,6 +975,7 @@ $this->trace('  return=' . $retStr);
             $this->AttemptProgressStatus = FALSE;
             $this->AttemptCompletionStatus =  FALSE;
         }
+        $this->log('setCompletionStatus: ' . $this->ssID . ':' . ($this->AttemptProgressStatus ? 'true':'false') . ', ' . ($this->AttemptCompletionStatus ? 'true':'false'), false, true);
     }
 
     private function setLocalCompletionStatus($num, $str) {
@@ -1646,4 +1686,20 @@ $this->trace('  return 0;');
         }
     }
 
+    private function log($str = '', $output_backtrace = FALSE, $force_output = FALSE) {
+        if (FALSE && !$this->ignoreTrace) {
+            $dirs = explode(DIRECTORY_SEPARATOR, dirname(__FILE__));
+            array_pop($dirs);
+            $trace_file = implode('/', $dirs) . '/syslog/trace';
+            $bt = debug_backtrace();
+            if ($str === '' && isset($bt[1])) {
+                $str = $this->getTraceString($bt[1]);
+            }
+            if ($fh = fopen($trace_file, 'a+')) {
+                //fwrite($fh, date('Y/m/d H:i:s') . " $str\n");
+                fwrite($fh, "$str\n");
+                fclose($fh);
+            }
+        }
+    }
 }

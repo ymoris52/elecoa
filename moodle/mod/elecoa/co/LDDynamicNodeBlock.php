@@ -9,15 +9,17 @@ class LDDynamicNodeBlock extends LDSimpleBlock {
         $this->cmdTableFromChild['CREATENODE'] = array('Func' => 'exeCreateNodeC');
     }
 
-    function addData($data) {
-        parent::addData($data);
-        $manifestsNode = selectSingleNode($data, 'manifests');
-        $manifestNodes = selectNodes($manifestsNode, 'manifest');
-        if ($manifestNodes != null) {
-            $len = count($manifestNodes);
-            for ($i=0; $i < $len; $i++) {
-                $manifestId = $manifestNodes[$i]->getAttribute('identifier');
-                $this->manifestXmls[$manifestId] = $manifestNodes[$i]->C14N();
+    function addDOMData($node) {
+        parent::addDOMData($node);
+        $manifestsNode = selectSingleDOMNode($node, 'manifests');
+        if ($manifestsNode != null) {
+            $manifestNodes = selectDOMNodes($manifestsNode, 'manifest');
+            if ($manifestNodes != null) {
+                $len = count($manifestNodes);
+                for ($i=0; $i < $len; $i++) {
+                    $manifestId = $manifestNodes[$i]->getAttribute('identifier');
+                    $this->manifestXmls[$manifestId] = $manifestNodes[$i]->C14N();
+                }
             }
         }
     }

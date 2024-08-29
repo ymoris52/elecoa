@@ -84,7 +84,7 @@ class SCORMBlock extends SimpleBlock {
     }
 
     private function set_node_value(&$parent_node, $node_name, $node_value) {
-        $node = selectSingleNode($parent_node, $node_name);
+        $node = selectSingleDOMNode($parent_node, $node_name);
         if ($node) {
             $node->nodeValue = $node_value;
         } else {
@@ -331,7 +331,7 @@ class SCORMBlock extends SimpleBlock {
 
     private function exeRollup_Using_Rules($checkSatisfied, $isCurrenetO, $isCurrenetA) {
         $this->co_trace();
-        $actions = $checkSatisfied ? array('satisfied', 'notSatisfied', 'incomplete', 'completed') : array('incomplete', 'completed');
+        $actions = $checkSatisfied ? array('notSatisfied', 'satisfied', 'incomplete', 'completed') : array('incomplete', 'completed');
         foreach ($actions as $str) {
             $tmpAry = $this->seqParam->getRollupRules($str);
             $len = count($tmpAry);
@@ -423,7 +423,12 @@ $this->co_trace('setCompletionStatus, ' . $str);
             if ($retStr != '') {
                 $retArray['Result'] = TRUE;
                 $retArray['Continue'] = TRUE;
-                $retArray['Value'] = array('command' => $retStr, 'value' => NULL, 'activityId' => $this->getID());
+                // FIX: RU-08b
+                if ($retStr == 'EXITPARENT') {
+                    $retArray['Value'] = array('command' => $retStr, 'value' => $val['command'], 'activityId' => $this->getID());
+                } else {
+                    $retArray['Value'] = array('command' => $retStr, 'value' => NULL, 'activityId' => $this->getID());
+                }
             } else {
                 $retArray['Result'] = TRUE;
                 $retArray['Continue'] = TRUE;
@@ -441,7 +446,8 @@ $this->co_trace('setCompletionStatus, ' . $str);
                     } else {
                         $retArray['Result'] = TRUE;
                         $retArray['Continue'] = TRUE;
-                        $retArray['Value'] = array('command' => 'EXITPARENT', 'value' => NULL, 'activityId' => $this->getID());
+                        // FIX: RU-08b
+                        $retArray['Value'] = array('command' => 'EXITPARENT', 'value' => $val['value'], 'activityId' => $this->getID());
                     }
                 } else {
                     $retArray['Result'] = TRUE;

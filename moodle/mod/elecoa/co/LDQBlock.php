@@ -9,9 +9,9 @@ class LDQBlock extends LDSimpleBlock {
         $this->cmdTableFromChild['CREATEQUESTION'] = array('Func' => 'exeCreateQuestionC', 'Type' => 'seq', 'View' => FALSE);
     }
 
-    function addData($data) {
-        parent::addData($data);
-        $questionManifest = selectSingleNode($data, 'questionManifest');
+    function addDOMData($node) {
+        parent::addDOMData($node);
+        $questionManifest = selectSingleDOMNode($node, 'questionManifest');
         $this->questionManifestXml = $questionManifest->C14N();
     }
 

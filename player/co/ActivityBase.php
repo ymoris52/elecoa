@@ -24,9 +24,10 @@
         function __construct (&$ctx, $num, $node, $res, &$objectives) {
             $this->context = $ctx;
             $this->strID = $node->getAttribute('identifier');
-            $n = selectSingleNode($node, 'title');
+            $snode = new SerializableNode($node);
+            $n = selectSingleNode($snode, 'title');
             $this->strTitle = is_null($n) ? '' : $n->nodeValue;
-            $this->dataNode = selectSingleNode($node, 'itemData');
+            $this->dataNode = selectSingleNode($snode, 'itemData');
             $this->parent = $num;
             $this->children = array();
             $this->isActive = FALSE;
@@ -113,10 +114,10 @@
             $result = '';
             
             if (isset($trace['file'])) {
-                $result .= $trace['file'] . ' ';
+                //$result .= $trace['file'] . ' ';
             }
             if (isset($trace['line'])) {
-                $result .= '(' . $trace['line'] . ') ';
+                //$result .= '(' . $trace['line'] . ') ';
             }
             if (isset($trace['object'])) {
                 $result .= get_class($trace['object']);
@@ -221,7 +222,8 @@
                     $str = $this->getTraceString($bt[1]);
                 }
                 if ($fh = fopen($trace_file, 'a+')) {
-                    fwrite($fh, date('Y/m/d H:i:s') . " $str  [ " . $this -> getID() . ' / ' . get_class($this) . " ]\n");
+                    //fwrite($fh, date('Y/m/d H:i:s') . " $str  [ " . $this -> getID() . ' / ' . get_class($this) . " ]\n");
+                    fwrite($fh, "$str\n");
                     if ($output_backtrace) {
                         foreach ($bt as $trace) {
                             fwrite($fh, $this->getTraceString($trace) . "\n");

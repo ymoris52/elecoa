@@ -64,7 +64,7 @@ class SCORMAsset extends SCORMLeaf {
     }
     
     private function set_node_value(&$parent_node, $node_name, $node_value) {
-        $node = selectSingleNode($parent_node, $node_name);
+        $node = selectSingleDOMNode($parent_node, $node_name);
         if ($node) {
             $node->nodeValue = $node_value;
         }

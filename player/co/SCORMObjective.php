@@ -33,6 +33,7 @@
         }
 
         public function getValue() {
+            $this->co_trace();
             return array('SuccessStatus' => $this->getSuccessStatus(), 'ScaledScore' => $this->getScaledScore());
         }
 
@@ -45,6 +46,7 @@
         }
 
         public function setValue($keyvalue) {
+            $this->co_trace();
             if (array_key_exists('SuccessStatus', $keyvalue)) {
                 $this->setSuccessStatus($keyvalue['SuccessStatus']);
             }

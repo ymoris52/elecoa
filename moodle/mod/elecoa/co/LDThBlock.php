@@ -11,22 +11,22 @@ class LDThBlock extends LDSimpleBlock {
         parent::__construct($ctx, $num, $node, $res, $objectives);
     }
 
-    function addData($data) {
-        parent::addData($data);
-        $events = selectSingleNode($data, 'events');
+    function addDOMData($node) {
+        parent::addDOMData($node);
+        $events = selectSingleDOMNode($node, 'events');
         if (!is_null($events)) {
-            foreach (selectNodes($events, 'event') as $event) {
+            foreach (selectDOMNodes($events, 'event') as $event) {
                 $name = $event->getAttribute('name');
                 $action = $event->getAttribute('action');
                 $value = $event->getAttribute('value');
                 $this->eventList[] = array('name' => $name, 'action' => $action, 'value' => $value);
             }
         }
-        $threadManifest = selectSingleNode($data, 'threadManifest');
+        $threadManifest = selectSingleDOMNode($node, 'threadManifest');
         if (!is_null($threadManifest)) {
             $this->threadManifestXml = $threadManifest->C14N();
         }
-        $thread = selectSingleNode($data, 'thread');
+        $thread = selectSingleDOMNode($node, 'thread');
         if (!is_null($thread)) {
             $this->secret = $thread->getAttribute('secret');
         }
@@ -55,7 +55,7 @@ class LDThBlock extends LDSimpleBlock {
     private function create_token($user)
     {
         $secret = $this->secret;
-        $key = base64_decode($secret);
+        $key = $secret;
         $value = $user . ':' . rand() . ':' . time();
 	    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length("AES-128-CBC"));
 	    $raw = openssl_encrypt($value, "AES-128-CBC", $key, $options=OPENSSL_RAW_DATA, $iv);

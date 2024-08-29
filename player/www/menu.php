@@ -2,9 +2,9 @@
     require_once(dirname(__FILE__) . '/../init_www.php');
 
     function selectChoiceItems($node, &$items) {
-        foreach (selectNodes($node, 'item') as $n) {
+        foreach (selectDOMNodes($node, 'item') as $n) {
             $identifier = $n->getAttribute('identifier');
-            if (!is_null($title = selectSingleNode($n, 'title'))) {
+            if (!is_null($title = selectSingleDOMNode($n, 'title'))) {
                 $title = $title->nodeValue;
             }
             $items["$identifier"] = $title;
@@ -32,10 +32,10 @@
         selectChoiceItems($doc -> documentElement, $choice_items);
         $choices[] = $choice_items;
         // DOMXPath は namespace が扱いづらいので使わない
-        if (is_null($organization = selectSingleNode($doc -> documentElement, 'item'))) {
+        if (is_null($organization = selectSingleDOMNode($doc -> documentElement, 'item'))) {
             continue;
         }
-        if (!is_null($title = selectSingleNode($organization, 'title'))) {
+        if (!is_null($title = selectSingleDOMNode($organization, 'title'))) {
             $title = $title -> nodeValue;
         }
         if (is_null($title) or $title === '') {

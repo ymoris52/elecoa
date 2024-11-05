@@ -154,7 +154,7 @@ class FileLog extends LogBase
         }
     }
 
-    private function log_dir($ctx, $type, $global_to_system) {
+    protected function log_dir($ctx, $type, $global_to_system) {
         if ($type == 'Objective') {
             if ($global_to_system) {
                 return $this->log_path . '/GO/' . urlencode($ctx->getUid());
@@ -169,7 +169,7 @@ class FileLog extends LogBase
     }
 
     // コンテンツ名 (格納ディレクトリ名) から、ログディレクトリ名 (アテンプト番号は含まない) を返す
-    private function log_base($uid, $cid) {
+    protected function log_base($uid, $cid) {
         $log_base = $this->log_path . '/' . $cid . '/' . urlencode($uid);
         return $log_base;
     }

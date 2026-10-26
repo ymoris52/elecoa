@@ -7,6 +7,7 @@
         protected $cmdTableFromSelf;     // 自分で処理できるメッセージテーブル
         protected $cmdTableFromAncestor; // 祖先が処理できるメッセージテーブル
         protected $cmdTableFromParent;   // 親からのメッセージテーブル
+        protected $cmdTableFromObjective;
 
         function __construct(&$ctx, $num, $node, $res, &$objectives) {
             parent::__construct($ctx, $num, $node, $res, $objectives);

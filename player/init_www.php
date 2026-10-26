@@ -27,7 +27,6 @@
     require_once(base_path . '/CommandEntry.php');
     require_once(base_path . '/' . log_module . '.php');
     require_once(base_path . '/utilityLib.php');
-    set_error_handler('error_handler');
 
     spl_autoload_register(function ($classname) {
         $classfile = base_path . '/co/' . $classname . '.php';
@@ -143,13 +142,6 @@
             }
         }
         fclose($fh);
-    }
-
-    function error_handler($errno, $errstr, $errfile, $errline) {
-        if ( E_RECOVERABLE_ERROR === $errno ) {
-            throw new ErrorException($errstr, $errno, 0, $errfile, $errline);
-        }
-        return false;
     }
 
     function error($msg = NULL) {

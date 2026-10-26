@@ -607,20 +607,20 @@ function elecoa_reset_userdata($data) {
  * @return mixed True if module supports feature, false if not, null if doesn't know
  */
 function elecoa_supports($feature) {
-    switch($feature) {
-        case FEATURE_GROUPS:                  return FALSE;
-        case FEATURE_GROUPINGS:               return FALSE;
-        case FEATURE_MOD_INTRO:               return TRUE;
-        case FEATURE_COMPLETION_TRACKS_VIEWS: return FALSE;
-        case FEATURE_COMPLETION_HAS_RULES:    return FALSE;
-        case FEATURE_GRADE_HAS_GRADE:         return TRUE;
-        case FEATURE_GRADE_OUTCOMES:          return FALSE;
-        case FEATURE_BACKUP_MOODLE2:          return TRUE;
-        case FEATURE_SHOW_DESCRIPTION:        return TRUE;
-        case FEATURE_MOD_PURPOSE:             return MOD_PURPOSE_CONTENT;
-
-        default: return null;
-    }
+    return match ($feature) {
+        FEATURE_GROUPS => false,
+        FEATURE_GROUPINGS => false,
+        FEATURE_MOD_INTRO => true,
+        FEATURE_COMPLETION_TRACKS_VIEWS => false,
+        FEATURE_COMPLETION_HAS_RULES => false,
+        FEATURE_GRADE_HAS_GRADE => true,
+        FEATURE_GRADE_OUTCOMES => false,
+        FEATURE_BACKUP_MOODLE2 => true,
+        FEATURE_SHOW_DESCRIPTION => true,
+        FEATURE_MOD_PURPOSE => MOD_PURPOSE_INTERACTIVECONTENT,
+        FEATURE_MOD_OTHERPURPOSE => MOD_PURPOSE_CONTENT,
+        default => null,
+    };
 }
 
 function elecoa_course_format_display($user,$course) {

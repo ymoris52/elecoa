@@ -45,8 +45,6 @@ require_once($module_dir . '/core/MoodleGrade.php');
 require_once($module_dir . '/core/CMI5Config.php');
 require_once($module_dir . '/core/CMI5Extension.php');
 
-set_error_handler('error_handler');
-
 function createAPIAdapterProvider($type) {
     $class_name = $type . 'APIAdapterProvider';
     return new $class_name();
@@ -69,11 +67,4 @@ function writeLog($ctx, $activity_id, $count, $type, $key_value_pairs, $global_t
 
 function getGradeModule() {
     return new MoodleGrade(ELECOA_TABLE, ELECOA_ITEMS_TABLE, ELECOA_GRADES_TABLE, ELECOA_ID_COLUMN, 'elecoa_update_grades');
-}
-
-function error_handler($errno, $errstr, $errfile, $errline) {
-    if ( E_RECOVERABLE_ERROR === $errno ) {
-        throw new ErrorException($errstr, $errno, 0, $errfile, $errline);
-    }
-    return FALSE;
 }

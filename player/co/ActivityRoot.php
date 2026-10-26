@@ -3,6 +3,7 @@
 
     abstract class ActivityRoot extends ActivityBase {
         protected $cmdTableFromChild; // 子からのメッセージテーブル
+        protected $cmdTableFromObjective;
 
         function __construct(&$ctx, $num, $node, $res, &$objectives) {
             parent::__construct($ctx, $num, $node, $res, $objectives);

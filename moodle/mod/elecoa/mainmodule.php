@@ -3,14 +3,6 @@
 
 require_once(dirname(__FILE__) . '/core/init_www.php');
 
-set_error_handler(function($errno, $errstr, $errfile, $errline) {
-    if (0 == error_reporting()) {
-        // Error reporting is turned off or suppressed with @
-        return;
-    }
-    throw new ErrorException($errstr, $errno, 0, $errfile, $errline);
-});
-
 $debug = FALSE;
 if ($debug) {
     register_shutdown_function(function() {
@@ -244,7 +236,11 @@ function execute_command($content_id, $command, $value, $runtime, $return = FALS
                             $o->terminate();
                         }
                     } catch (Exception $e) {
-                        elecoa_ajax_error($e->debuginfo, $e);
+                        $debuginfo = NULL;
+                        if (!empty($e->debuginfo)) {
+                            $debuginfo = $e->debuginfo;
+                        }
+                        elecoa_ajax_error($debuginfo, $e);
                     }
 
                     if ($retarray['Command'] === 'EXITALL') {
@@ -264,7 +260,11 @@ function execute_command($content_id, $command, $value, $runtime, $return = FALS
                             $o->terminate();
                         }
                     } catch (Exception $e) {
-                        elecoa_ajax_error($e->debuginfo, $e);
+                        $debuginfo = NULL;
+                        if (!empty($e->debuginfo)) {
+                            $debuginfo = $e->debuginfo;
+                        }
+                        elecoa_ajax_error($debuginfo, $e);
                     }
                 }
             }

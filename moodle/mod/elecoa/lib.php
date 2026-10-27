@@ -618,7 +618,10 @@ function elecoa_supports($feature) {
         FEATURE_BACKUP_MOODLE2 => true,
         FEATURE_SHOW_DESCRIPTION => true,
         FEATURE_MOD_PURPOSE => MOD_PURPOSE_INTERACTIVECONTENT,
-        FEATURE_MOD_OTHERPURPOSE => MOD_PURPOSE_CONTENT,
+
+// Moodle 5.1 or later
+//        FEATURE_MOD_OTHERPURPOSE => MOD_PURPOSE_CONTENT,
+
         default => null,
     };
 }

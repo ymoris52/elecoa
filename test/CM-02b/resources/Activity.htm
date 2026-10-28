@@ -61,12 +61,14 @@
     var page = param[param.length - 1];
     page = page.replace("act=","")
     var API = null;
-    window.onload = function() {
-     myInit();
-    }
-    window.onunload = function() {
-     myFin();
-    }
+    window.addEventListener('load', (event) => {
+        myInit();
+    });
+    window.addEventListener('pagehide', (event) => {
+        if (!event.persisted) {
+            myFin();
+        }
+    });
    // ]]>
   </script>
   <title>Activity</title>
